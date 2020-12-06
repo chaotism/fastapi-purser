@@ -2,7 +2,7 @@
 from pydantic import Field
 
 from app.config.base import BaseSettings
-from app.config.cfg import IS_TEST
+from app.config.application import ApplicationSettings
 
 DB_MODELS = ["app.core.models.tortoise"]
 POSTGRES_DB_URL = "postgres://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
@@ -29,8 +29,8 @@ class TortoiseSettings(BaseSettings):
     @classmethod
     def generate(cls):
         """Generate Tortoise-ORM settings (with sqlite if tests)"""
-
-        if IS_TEST:
+        application = ApplicationSettings()
+        if application.is_test:
             db_url = SQLITE_DB_URL
         else:
             postgres = PostgresSettings()
