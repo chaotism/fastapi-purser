@@ -1,6 +1,4 @@
 """Config of apps"""
-from os import environ
-
 from pydantic import Field
 
 from app.config.base import BaseSettings
