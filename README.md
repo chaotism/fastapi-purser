@@ -15,3 +15,5 @@ add https side car container
 improve security:
 add jwt tokens and CORS checking current user user status user ObjectId instead int for pk of object
 rewrite func in async await style for decreasing threads 
+
+rewrite code to DDD models/service/repository
