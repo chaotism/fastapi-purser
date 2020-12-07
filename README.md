@@ -1,16 +1,17 @@
-# FastAPI and Tortoise ORM.
-Powerful but simple template for web APIs w/ FastAPI (as web framework) and Tortoise-ORM (for working via database without headache).
+# Template.
+I clone this repository `git clone https://github.com/prostomarkeloff/fastapi-tortoise`
 
-## Features
-    * Deploy with Docker.
-    * Local development with docker-compose.
-    * Fast and powerful web framework and ORM.
-    * Clear and fast code.
-    * Some powerful utils out-of-the-box that highly customizable with tests.
+# Plans
+## Close plans
+Release mvp with fastapi tasks and make tests
+Use db instead dict
 
-## How to use?
-
-1. Clone this repository (`git clone https://github.com/prostomarkeloff/fastapi-tortoise`)
-2. Rename `.env.example` to `.env`
-3. Delete unnecessary code (like `hello` router and tests for it)
-4. Customize!
+## Future Plans
+improve work with chain transaction
+release work plans with refund (returning balans and trouble with negative balance after chain of transaction)
+read about fraud operation 
+make improve logs 
+add https side car container
+improve security:
+add jwt tokens and CORS checking current user user status user ObjectId instead int for pk of object
+rewrite func in async await style for decreasing threads 
