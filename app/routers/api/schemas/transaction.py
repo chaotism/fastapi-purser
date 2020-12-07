@@ -29,10 +29,10 @@ class TransactioInDBBase(BaseModel):
 
 
 # Properties to return to client
-class Item(TransactioInDBBase):
+class Transaction(TransactioInDBBase):
     pass
 
 
 # Properties properties stored in DB
-class ItemInDB(TransactioInDBBase):
+class TransactionInDB(TransactioInDBBase):
     pass
