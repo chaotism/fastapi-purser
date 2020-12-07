@@ -19,13 +19,13 @@ Here I was tried to describe how to use it and that ideas I followed when was cr
 
 `app/initializer.py` is the file which will be called by `app/main.py` for application initializing. Out of the box it's initializing the database and API routers.
 
+`app/core/...` core common part of your API app
+
 `app/api/...` here you should define the routes. In `app/api/__init__.py` you should import routers and init `TypedAPIRouter`s for much pretty tags, dependencies and etc initialization.
 
 `app/utils/...` here you may create a needed for your projects utilites.
 
-`app/models/...` Tortoise and Pydantic models of database entities.
-
-`app/exceptions/...` exceptions for your API, just like `fastapi.HTTPException` but for your needs.
+`app/models/...` Pydantic models of  entities.
 
 `app/config/...` config for your project. You always can change it but please, try use the `pydantic.BaseSettings` - it really good thing.
 

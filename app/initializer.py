@@ -36,7 +36,7 @@ def init_routers(app: FastAPI):
     :param app:
     :return:
     """
-    from app.core import routers
+    from app import routers
 
     routers = [o[1] for o in getmembers(routers) if isinstance(o[1], TypedAPIRouter)]
 

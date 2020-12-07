@@ -1,11 +1,11 @@
 from app.main import app
 from tests.client import TestClient
 
-PREFIX = "/hello"
+PREFIX = "/system-status/"
 client = TestClient(PREFIX, app)
 
 
 class TestHello:
     def test_get(self):
         response = client.get("/get")
-        assert response.text.lower() == "hello!"
+        assert "ok" in response.text.lower()
