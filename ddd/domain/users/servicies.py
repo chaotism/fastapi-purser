@@ -1,0 +1,22 @@
+from dataclasses import dataclass
+from datetime import datetime
+from decimal import Decimal
+from typing import Dict, List, Optional
+from uuid import UUID
+
+from .entities import User
+from .repositories import UserRepository
+from .types import UserID, UserName
+from ..users.entities import User
+
+from pydantic import BaseModel, EmailStr, UUID1
+
+
+class UserService:
+    def __init__(self) -> None:
+        self.user_repo = UserRepository()
+
+    def register_account(self, user_id: UserID, email: EmailStr, name: Optional[UserName] = None) -> User:
+        user = User(_id=user_id, email=email, name=name)  # TODO: create id after save
+        self.account_repo.insert(user)
+        return user
