@@ -11,13 +11,13 @@ from ..users.entities import User
 from pydantic import BaseModel, EmailStr, UUID1
 
 
-class Cash(BaseModel):
+class Money(BaseModel):
     amount: Decimal
     currency: CurrencyType
 
 
 class Account(BaseModel):
-    id: AccountID
+    _id: AccountID
     owner: User
 
-    balance: Cash
+    balance: Money

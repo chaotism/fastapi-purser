@@ -11,6 +11,6 @@ from pydantic import BaseModel, EmailStr, UUID1
 
 
 class User(BaseModel):
-    id: UUID1
+    _id: UUID1
     email: EmailStr
     name: Optional[UserName] = None
