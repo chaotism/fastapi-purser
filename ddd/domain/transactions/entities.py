@@ -19,6 +19,6 @@ class Transaction(BaseModel):
     from_account: Account
     to_account: Account
 
-    value: Money
+    sum: Money
 
-    status: StatusType
+    status: Optional[StatusType] = StatusType('new')
