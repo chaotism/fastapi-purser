@@ -5,7 +5,7 @@ from typing import Dict, List, Optional
 from uuid import UUID
 
 from .defines import CurrencyType
-from .entities import Account
+from .entities import Account, Money
 from .repositories import AccountRepository
 from .types import AccountID
 from ..users.entities import User
@@ -17,11 +17,13 @@ class AccountService:
     def __init__(self) -> None:
         self.account_repo = AccountRepository()
 
-    def register_account(self, account_id: AccountID) -> Account:
-        clan = self._get_clan(account_id)
-        nickname = self._get_nickname(account_id)
-        if self._is_account_banned(account_id):
-            raise Exception('Account can not be created.')
-        account = Account(account_id, nickname, clan)
-        self.account_repo.insert(account)
-        return account
+    def register_account(self, account_id: AccountID, user: User, balance: Money) -> Account:  # TODO: move into Account entity construct
+        return Account(id=account_id, owner=user, balance=balance)
+
+    def deposit(self, account: Account, money: Money):
+        account.balance.amount += money.amount
+        self.account_repo.update(account)
+
+    def withdraw(self, account: Account, money: Money):
+        account.balance.amount -= money.amount
+        self.account_repo.update(account)
