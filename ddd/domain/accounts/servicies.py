@@ -17,8 +17,10 @@ class AccountService:
     def __init__(self) -> None:
         self.account_repo = AccountRepository()
 
-    def register_account(self, account_id: AccountID, user: User, balance: Money) -> Account:  # TODO: move into Account entity construct
-        return Account(id=account_id, owner=user, balance=balance)
+    def register_account(self, account_id: AccountID, user: User, balance: Money) -> Account:
+        account = Account(_id=account_id, owner=user, balance=balance)  # TODO: create id after save
+        self.account_repo.insert(account)
+        return account
 
     def deposit(self, account: Account, money: Money):
         account.balance.amount += money.amount
