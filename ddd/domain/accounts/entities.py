@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 from uuid import UUID
 
 from .defines import CurrencyType
+from .types import AccountID
 from ..users.entities import User
 
 from pydantic import BaseModel, EmailStr, UUID1
@@ -16,9 +17,7 @@ class Cash(BaseModel):
 
 
 class Account(BaseModel):
-    id: UUID1
+    id: AccountID
     owner: User
 
     balance: Cash
-
-

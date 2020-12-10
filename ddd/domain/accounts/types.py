@@ -1,8 +1,6 @@
 from typing import NewType
 
+from pydantic import UUID1
 
-CountryName = NewType("CountryName", str)
-CountryCode = NewType("CountryCode", str)
 
-StateName = NewType("StateName", str)
-StateCode = NewType("StateCode", str)
+AccountID = NewType("AccountID", UUID1)
