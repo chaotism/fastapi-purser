@@ -1,19 +1,10 @@
-from dataclasses import dataclass
-from datetime import datetime
-from decimal import Decimal
-from typing import Dict, List, Optional
-from uuid import UUID
-
 from .defines import StatusType
 from .entities import Transaction, Money
 from .repositories import TransactionRepository
 from .types import TransactionID
 from ..accounts.entities import Account
 from ..accounts.servicies import AccountService
-from ..users.entities import User
 from ...types import Service
-
-from pydantic import BaseModel, EmailStr, UUID1
 
 
 class TransactionService(Service):

@@ -1,14 +1,9 @@
-from dataclasses import dataclass
-from datetime import datetime
-from decimal import Decimal
-from typing import Dict, List, Optional
-from uuid import UUID
+from typing import Optional
+
+from pydantic import EmailStr, UUID1
 
 from .types import UserName
 from ...types import Entity
-
-
-from pydantic import BaseModel, EmailStr, UUID1
 
 
 class User(Entity):

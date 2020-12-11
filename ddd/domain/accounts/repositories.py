@@ -1,18 +1,10 @@
-from dataclasses import dataclass
-from datetime import datetime
-from decimal import Decimal
-from typing import Dict, List, Optional, Generic
-from uuid import UUID
-from contextlib import contextmanager
 from abc import ABCMeta, abstractmethod
+from contextlib import contextmanager
+from typing import Optional
 
-from .defines import CurrencyType
 from .entities import Account
 from .types import AccountID
-from ..users.entities import User
 from ...types import Repository
-
-from pydantic import BaseModel, EmailStr, UUID1
 
 
 class AccountRepository(Repository):

@@ -1,16 +1,11 @@
-from dataclasses import dataclass
-from datetime import datetime
-from decimal import Decimal
-from typing import Dict, List, Optional
-from uuid import UUID
+from typing import Optional
 
-from .entities import User
+from pydantic import EmailStr
+
 from .repositories import UserRepository
 from .types import UserID, UserName
 from ..users.entities import User
 from ...types import Service
-
-from pydantic import BaseModel, EmailStr, UUID1
 
 
 class UserService(Service):

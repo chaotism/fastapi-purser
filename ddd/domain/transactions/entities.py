@@ -1,14 +1,10 @@
-from dataclasses import dataclass
-from datetime import datetime
-from decimal import Decimal
-from typing import Dict, List, Optional
-from uuid import UUID
+from typing import Optional
+
+from pydantic import UUID1
 
 from .defines import StatusType
 from ..accounts.entities import Account, Money
 from ...types import Entity
-
-from pydantic import BaseModel, EmailStr, UUID1
 
 
 # TODO: use pydantic types
