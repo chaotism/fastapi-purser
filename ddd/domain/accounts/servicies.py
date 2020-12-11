@@ -14,8 +14,8 @@ from pydantic import BaseModel, EmailStr, UUID1
 
 
 class AccountService:
-    def __init__(self) -> None:
-        self.account_repo = AccountRepository()
+    def __init__(self, account_repo: AccountRepository) -> None:
+        self.account_repo = account_repo
 
     def register_account(self, account_id: AccountID, user: User, balance: Money) -> Account:
         account = Account(_id=account_id, owner=user, balance=balance)  # TODO: create id after save
