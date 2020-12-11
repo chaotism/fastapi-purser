@@ -11,11 +11,12 @@ from .types import TransactionID
 from ..accounts.entities import Account
 from ..accounts.servicies import AccountService
 from ..users.entities import User
+from ...types import Service
 
 from pydantic import BaseModel, EmailStr, UUID1
 
 
-class TransactionService:
+class TransactionService(Service):
     def __init__(self, transaction_repo: TransactionRepository) -> None:
         self.transaction_repo = transaction_repo
 

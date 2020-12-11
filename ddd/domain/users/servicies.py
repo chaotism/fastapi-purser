@@ -8,11 +8,12 @@ from .entities import User
 from .repositories import UserRepository
 from .types import UserID, UserName
 from ..users.entities import User
+from ...types import Service
 
 from pydantic import BaseModel, EmailStr, UUID1
 
 
-class UserService:
+class UserService(Service):
     def __init__(self, user_repo: UserRepository) -> None:
         self.user_repo = user_repo
 

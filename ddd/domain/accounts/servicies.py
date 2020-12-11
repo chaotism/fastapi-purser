@@ -9,11 +9,12 @@ from .entities import Account, Money
 from .repositories import AccountRepository
 from .types import AccountID
 from ..users.entities import User
+from ...types import Service
 
 from pydantic import BaseModel, EmailStr, UUID1
 
 
-class AccountService:
+class AccountService(Service):
     def __init__(self, account_repo: AccountRepository) -> None:
         self.account_repo = account_repo
 

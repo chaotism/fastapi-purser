@@ -5,12 +5,13 @@ from typing import Dict, List, Optional
 from uuid import UUID
 
 from .types import UserName
+from ...types import Entity
 
 
 from pydantic import BaseModel, EmailStr, UUID1
 
 
-class User(BaseModel):
+class User(Entity):
     _id: UUID1
     email: EmailStr
     name: Optional[UserName] = None

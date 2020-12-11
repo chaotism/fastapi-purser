@@ -9,11 +9,12 @@ from abc import ABCMeta, abstractmethod
 from .entities import User
 from .types import UserID
 from ..users.entities import User
+from ...types import Repository
 
 from pydantic import BaseModel, EmailStr, UUID1
 
 
-class UserRepository:
+class UserRepository(Repository):
     __metaclass__ = ABCMeta
 
     @abstractmethod

@@ -6,14 +6,14 @@ from uuid import UUID
 
 from .defines import StatusType
 from ..accounts.entities import Account, Money
-
+from ...types import Entity
 
 from pydantic import BaseModel, EmailStr, UUID1
 
 
 # TODO: use pydantic types
 
-class Transaction(BaseModel):
+class Transaction(Entity):
     _id: UUID1
 
     from_account: Account

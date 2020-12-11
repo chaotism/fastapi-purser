@@ -7,16 +7,17 @@ from uuid import UUID
 from .defines import CurrencyType
 from .types import AccountID
 from ..users.entities import User
+from ...types import Entity
 
 from pydantic import BaseModel, EmailStr, UUID1
 
 
-class Money(BaseModel):
+class Money(Entity):
     amount: Decimal
     currency: CurrencyType
 
 
-class Account(BaseModel):
+class Account(Entity):
     _id: AccountID
     owner: User
 

@@ -10,11 +10,12 @@ from .defines import CurrencyType
 from .entities import Account
 from .types import AccountID
 from ..users.entities import User
+from ...types import Repository
 
 from pydantic import BaseModel, EmailStr, UUID1
 
 
-class AccountRepository:
+class AccountRepository(Repository):
     __metaclass__ = ABCMeta
 
     @abstractmethod
