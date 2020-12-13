@@ -1,9 +1,6 @@
 from inspect import getmembers
 
 from fastapi import FastAPI
-from tortoise.contrib.starlette import register_tortoise
-
-from app.config import tortoise_config
 from app.utils.api.router import TypedAPIRouter
 
 
@@ -22,12 +19,6 @@ def init_db(app: FastAPI):
     :param app:
     :return:
     """
-    register_tortoise(
-        app,
-        db_url=tortoise_config.db_url,
-        generate_schemas=tortoise_config.generate_schemas,
-        modules=tortoise_config.modules,
-    )
 
 
 def init_routers(app: FastAPI):
