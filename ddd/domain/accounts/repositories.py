@@ -15,10 +15,6 @@ class AccountRepository(Repository):
         pass
 
     @abstractmethod
-    def get_or_raise_by_id(self, instance_id: AccountID) -> Account:
-        pass
-
-    @abstractmethod
     def insert(self, instance: Account) -> None:
         pass
 

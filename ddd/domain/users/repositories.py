@@ -15,10 +15,6 @@ class UserRepository(Repository):
         pass
 
     @abstractmethod
-    def get_or_raise_by_id(self, instance_id: UserID) -> User:
-        pass
-
-    @abstractmethod
     def insert(self, instance: User) -> None:
         pass
 
