@@ -4,7 +4,7 @@ from typing import Optional
 
 from .entities import Transaction
 from .types import TransactionID
-from ...types import Repository
+from domain.types import Repository
 
 
 class TransactionRepository(Repository):

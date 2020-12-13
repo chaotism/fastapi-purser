@@ -3,7 +3,7 @@ from typing import Optional
 from .defines import StatusType
 from .types import TransactionID
 from ..accounts.entities import Account, Money
-from ...types import Entity
+from domain.types import Entity
 
 
 # TODO: use pydantic types

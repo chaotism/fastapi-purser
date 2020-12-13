@@ -2,28 +2,28 @@ from abc import ABCMeta, abstractmethod
 from contextlib import contextmanager
 from typing import Optional
 
-from .types import UserID
-from ..users.entities import User
-from ...types import Repository
+from .entities import Account
+from .types import AccountID
+from domain.types import Repository
 
 
-class UserRepository(Repository):
+class AccountRepository(Repository):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def get_by_id(self, instance_id: UserID) -> Optional[User]:
+    def get_by_id(self, instance_id: AccountID) -> Optional[Account]:
         pass
 
     @abstractmethod
-    def insert(self, instance: User) -> None:
+    def insert(self, instance: Account) -> None:
         pass
 
     @abstractmethod
-    def update(self, instance: User) -> None:
+    def update(self, instance: Account) -> None:
         pass
 
     @abstractmethod
-    def delete(self, instance: User) -> None:
+    def delete(self, instance: Account) -> None:
         pass
 
     @abstractmethod

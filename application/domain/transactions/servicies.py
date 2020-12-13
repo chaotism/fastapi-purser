@@ -6,7 +6,7 @@ from .repositories import TransactionRepository
 from .types import TransactionID
 from ..accounts.entities import Account
 from ..accounts.servicies import AccountService
-from ...types import Service
+from domain.types import Service
 
 
 class TransactionService(Service):

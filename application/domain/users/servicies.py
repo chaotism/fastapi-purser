@@ -5,7 +5,7 @@ from pydantic import EmailStr
 from .repositories import UserRepository
 from .types import UserID, UserName
 from ..users.entities import User
-from ...types import Service
+from domain.types import Service
 
 
 class UserService(Service):
