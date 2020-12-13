@@ -18,9 +18,8 @@ class UserService(Service):
         )
         if name is not None:
             user_data['name'] = name
-        user = User(**user_data)  # TODO: create id after save
-        repo_user = self.user_repo.insert(user)
-        """
-        addition logic like send email etc
-        """
-        return repo_user
+
+        user = User(**user_data)
+        repo_user_id = self.user_repo.insert(user)
+        # TODO: add addition logic like send email etc
+        return self.user_repo.get_by_id(repo_user_id)
