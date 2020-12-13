@@ -9,7 +9,7 @@ from domain.types import Entity
 # TODO: use pydantic types
 
 class Transaction(Entity):
-    _id: Optional[TransactionID]
+    id: Optional[TransactionID]
 
     from_account: Account
     to_account: Account

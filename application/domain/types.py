@@ -1,5 +1,6 @@
 from bson import ObjectId
-from pydantic import BaseModel
+from typing import Optional
+from pydantic import BaseModel, Field
 
 
 class PDObjectId(ObjectId):
@@ -20,7 +21,19 @@ class PDObjectId(ObjectId):
 
 
 class Entity(BaseModel):
-    pass
+    id: Optional[PDObjectId] = Field(alias='_id')
+
+    def get_id(self):
+        return self.id
+
+    def set_id(self, id: PDObjectId):
+        self.id = id
+
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {
+            ObjectId: str
+        }
 
 
 class DAO:

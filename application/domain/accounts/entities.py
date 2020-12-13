@@ -13,7 +13,7 @@ class Money(Entity):
 
 
 class Account(Entity):
-    _id: Optional[AccountID]
+    id: Optional[AccountID]
     owner: User
 
     balance: Money
