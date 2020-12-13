@@ -1,3 +1,5 @@
+from loguru import logger
+
 from .defines import StatusType
 from .entities import Transaction, Money
 from .repositories import TransactionRepository
@@ -24,7 +26,7 @@ class TransactionService(Service):
             with account_service.account_repo.atomic():
                 account_service.withdraw(transaction.from_account, transaction.sum)
                 account_service.deposit(transaction.to_account, transaction.sum)
-        except Exception as err:  # TODO: rewrite from common exception
-            print(err)  # TODO: use logger
+        except Exception as err:
+            logger.error(err)  # TODO: use logger
             return StatusType(StatusType.failed)
         return StatusType(StatusType.success)
