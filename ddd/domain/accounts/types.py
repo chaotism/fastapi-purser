@@ -1,5 +1,5 @@
 from typing import NewType
 
-from pydantic import UUID1
+from ...types import PDObjectId
 
-AccountID = NewType("AccountID", UUID1)
+AccountID = NewType("UserID", PDObjectId)

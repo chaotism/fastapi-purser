@@ -1,3 +1,4 @@
+from typing import Optional
 from decimal import Decimal
 
 from .defines import CurrencyType
@@ -12,7 +13,7 @@ class Money(Entity):
 
 
 class Account(Entity):
-    _id: AccountID
+    _id: Optional[AccountID]
     owner: User
 
     balance: Money
