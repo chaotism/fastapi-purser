@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from loguru import logger
 
 from server.config import openapi_config
-from server.dbs import mongo_motor_client
+from dbs import mongo_motor_client
 from server.initializer import init
 
 
