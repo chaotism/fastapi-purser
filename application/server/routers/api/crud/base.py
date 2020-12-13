@@ -19,7 +19,6 @@ class CRUDBase:
         obj = self.model.get(obj_id)
         return obj
 
-
     def get_multi(self,  *, skip: int = 0, limit: int = 100) -> List[Dict[str, Any]]:
         return list(self.model.values())[skip:limit]  # TODO: will not work
 

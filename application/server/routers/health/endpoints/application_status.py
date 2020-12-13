@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import APIRouter
 
-from app.routers.health import schemas
+from server.routers.health import schemas
 
 
 router = APIRouter()

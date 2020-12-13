@@ -1,9 +1,9 @@
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 
-from app.core.security.auths import get_password_hash, verify_password
+from server.core.security.auths import verify_password
 
-from app.routers.api.crud.base import CRUDBase
-from app.routers.api.schemas.user import UserBase
+from server.routers.api.crud.base import CRUDBase
+from server.routers.api.schemas.user import UserBase
 
 
 class CRUDUser(CRUDBase):

@@ -1,4 +1,4 @@
-from app.main import app
+from web.main import app
 from tests.client import TestClient
 
 PREFIX = "/system-status/"

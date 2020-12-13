@@ -1,7 +1,7 @@
 import pytest
 from fastapi import APIRouter
 
-from app.utils.api.router import TypedAPIRouter
+from application.server.utils.api import TypedAPIRouter
 
 
 @pytest.fixture

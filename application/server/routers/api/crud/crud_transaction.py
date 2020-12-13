@@ -1,4 +1,4 @@
-from app.routers.api.crud.base import CRUDBase
+from server.routers.api.crud.base import CRUDBase
 
 
 class CRUDTransaction(CRUDBase):

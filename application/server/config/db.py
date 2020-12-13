@@ -1,8 +1,8 @@
 """Config of DBS"""
 from pydantic import Field
 
-from app.config.base import BaseSettings
-from app.config.application import ApplicationSettings
+from server.config.base import BaseSettings
+from server.config.application import ApplicationSettings
 
 MONGO_DEFAULT_DB_URI = 'mongodb://localhost:27017'
 MONGO_DEFAULT_DB_NAME = 'purser'
@@ -17,7 +17,7 @@ class MongodbSettings(BaseSettings):
     @classmethod
     def generate(cls):
         """Generate MongoDD settings (with sqlite if tests)"""
-        application = ApplicationSettings()
-        if application.is_test:
+        application_settting = ApplicationSettings()
+        if application_settting.is_test:
             return MongodbSettings(db=MONGO_DEFAULT_DB_TEST_NAME)
         return MongodbSettings

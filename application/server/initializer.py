@@ -1,7 +1,7 @@
 from inspect import getmembers
 
 from fastapi import FastAPI
-from app.utils.api.router import TypedAPIRouter
+from server.server.utils.api import TypedAPIRouter
 
 
 def init(app: FastAPI):
@@ -27,7 +27,7 @@ def init_routers(app: FastAPI):
     :param app:
     :return:
     """
-    from app import routers
+    from web import routers
 
     routers = [o[1] for o in getmembers(routers) if isinstance(o[1], TypedAPIRouter)]
 

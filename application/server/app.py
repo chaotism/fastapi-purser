@@ -6,9 +6,9 @@ import uvicorn
 from fastapi import FastAPI
 from loguru import logger
 
-from app.config import openapi_config
-from app.dbs import mongo_motor_client
-from app.initializer import init
+from server.config import openapi_config
+from server.dbs import mongo_motor_client
+from server.initializer import init
 
 
 app = FastAPI(

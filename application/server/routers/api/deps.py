@@ -3,9 +3,9 @@ from typing import Generator
 from fastapi import Depends, HTTPException, status
 from pydantic import ValidationError
 
-from app.routers.api import schemas
-from app.routers.api import crud
-from app.core import security
+from server.routers.api import schemas
+from server.routers.api import crud
+from server.core import security
 
 
 def get_users_db() -> Generator:  # TODO: use try DB

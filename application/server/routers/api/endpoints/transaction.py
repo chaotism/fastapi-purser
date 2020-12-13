@@ -2,8 +2,7 @@ from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from app.routers.api import deps, schemas, crud
-
+from server.routers.api import schemas, crud, deps
 
 router = APIRouter()
 

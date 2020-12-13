@@ -13,4 +13,4 @@ RUN touch /app/app/__init__.py
 RUN poetry install -n
 
 
-COPY ./app /app/app
+COPY application/server /app/app

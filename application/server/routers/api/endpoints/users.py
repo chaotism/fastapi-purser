@@ -4,7 +4,8 @@ from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 
-from app.routers.api import deps, schemas, crud
+from server.routers.api import schemas, crud
+from server.server.routers.api import deps
 
 router = APIRouter()
 

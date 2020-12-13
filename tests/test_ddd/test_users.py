@@ -2,7 +2,7 @@ from typing import Optional
 from random import randint
 from uuid import uuid1
 import pytest
-from ddd.domain.users import UserID, User, UserService, UserRepository
+from application.ddd.domain import UserID, User, UserService, UserRepository
 
 
 class FakeUserRepository(UserRepository):

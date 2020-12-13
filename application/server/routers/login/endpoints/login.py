@@ -1,7 +1,7 @@
 from typing import Any
 from fastapi import APIRouter, Body
 
-from app.routers.login import schemas
+from server.server.routers.login import schemas
 
 
 router = APIRouter()
