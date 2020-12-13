@@ -1,40 +1,23 @@
-"""Config of DB"""
+"""Config of DBS"""
 from pydantic import Field
 
 from app.config.base import BaseSettings
 from app.config.application import ApplicationSettings
 
-DB_MODELS = ["app.core.models.tortoise"]
-POSTGRES_DB_URL = "postgres://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
-SQLITE_DB_URL = "sqlite://:memory:"
+MONGO_DEFAULT_DB_URI = 'mongodb://localhost:27017'
+MONGO_DEFAULT_DB_NAME = 'purser'
+MONGO_DEFAULT_DB_TEST_NAME = 'test'
 
 
-class PostgresSettings(BaseSettings):
-    """Postgres env values"""
-
-    postgres_user: str = Field("postgres", env="POSTGRES_USER")
-    postgres_password: str = Field("postgres", env="POSTGRES_PASSWORD")
-    postgres_db: str = Field("mydb", env="POSTGRES_DB")
-    postgres_port: str = Field("5432", env="POSTGRES_PORT")
-    postgres_host: str = Field("postgres", env="POSTGRES_HOST")
-
-
-class TortoiseSettings(BaseSettings):
-    """Tortoise-ORM settings"""
-
-    db_url: str
-    modules: dict
-    generate_schemas: bool
+class MongodbSettings(BaseSettings):
+    """Mongodb env values"""
+    uri: str = Field(MONGO_DEFAULT_DB_URI,  env='MONGO_URI')
+    db: str = Field(MONGO_DEFAULT_DB_NAME,  env='MONGO_DB')
 
     @classmethod
     def generate(cls):
-        """Generate Tortoise-ORM settings (with sqlite if tests)"""
+        """Generate MongoDD settings (with sqlite if tests)"""
         application = ApplicationSettings()
         if application.is_test:
-            db_url = SQLITE_DB_URL
-        else:
-            postgres = PostgresSettings()
-            db_url = POSTGRES_DB_URL.format(**postgres.dict())
-            del postgres
-        modules = {"models": DB_MODELS}
-        return TortoiseSettings(db_url=db_url, modules=modules, generate_schemas=True)
+            return MongodbSettings(db=MONGO_DEFAULT_DB_TEST_NAME)
+        return MongodbSettings
