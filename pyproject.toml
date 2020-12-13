@@ -10,6 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
+uvicorn = "^0.10.8"
 fastapi = "^0.44.0"
 pydantic = "^1.1"
 loguru = "^0.3.2"
@@ -21,7 +22,6 @@ black = {version = "^18.3-alpha.0", allows-prereleases = true}
 pytest = "^5.3"
 pytest-asyncio = "^0.10.0"
 pre-commit = "^1.20"
-uvicorn = "^0.10.8"
 pytest-cov = "^2.8"
 mkdocs = "^1.0"
 mkdocs-material = "^4.5"
