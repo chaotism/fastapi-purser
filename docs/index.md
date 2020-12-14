@@ -15,18 +15,8 @@ Here I was tried to describe how to use it and that ideas I followed when was cr
 
 ## The project structure
 
-`app/main.py` is the file which will import `uvicorn`, in this file you should call initializer functions.
-
-`app/initializer.py` is the file which will be called by `app/main.py` for application initializing. Out of the box it's initializing the database and API routers.
-
-`app/core/...` core common part of your API app
-
-`app/api/...` here you should define the routes. In `app/api/__init__.py` you should import routers and init `TypedAPIRouter`s for much pretty tags, dependencies and etc initialization.
-
-`app/utils/...` here you may create a needed for your projects utilites.
-
-`app/models/...` Pydantic models of  entities.
-
-`app/config/...` config for your project. You always can change it but please, try use the `pydantic.BaseSettings` - it really good thing.
-
-TBD
+`application/main_web.py` file for start server instead `uvicorn` load.
+`application/dbs` folder for db adapters.
+`application/domain` folder for business logic of application.
+`application/server` folder for web server logic of application.
+`application/tests` folder for tests.
