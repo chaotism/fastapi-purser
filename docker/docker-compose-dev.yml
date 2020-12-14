@@ -1,26 +1,24 @@
-version: '3'
+version: "3"
 services:
+  mongodb:
+    image: "mongo:4.4.2-bionic"
+    command: mongod --smallfiles --logpath=/dev/null
+    ports:
+      - "9999:27017"
+    volumes:
+      - "../var/mongo-data/:/data/db"
+
   api:
-    build: ..
+    build:
+      context: ../
+      dockerfile: ./docker/application/Dockerfile
     environment:
-      PORT: 8000
-      APP_MODULE: "app.main:app"
+      API_HOST: "0.0.0.0"
+      API_PORT: "8000"
     env_file:
-      - .env
+      - ../.env
     ports:
       - "8000:8000"
     restart: always
     depends_on:
-      - postgres
-    command: ["/start-reload.sh"]  # auto reload for development
-    volumes:
-      - ./app:/app/app
-
-  postgres:
-    image: "postgres:12"
-    ports:
-      - "5432:5432"
-    env_file: .env
-    volumes:
-      - "./postgres-data:/var/lib/postgresql/data"
-    restart: always
+      - mongodb
