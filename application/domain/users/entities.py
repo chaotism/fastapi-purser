@@ -10,3 +10,4 @@ class User(Entity):
     id: Optional[UserID]
     email: EmailStr
     name: Optional[UserName] = None
+    is_super_user: Optional[bool] = False

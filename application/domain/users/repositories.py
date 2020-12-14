@@ -13,6 +13,10 @@ class UserRepository(Repository):
     __metaclass__ = ABCMeta
 
     @abstractmethod
+    def get_count(self) -> int:
+        pass
+
+    @abstractmethod
     def get_by_id(self, instance_id: UserID) -> Optional[User]:
         pass
 
@@ -36,6 +40,9 @@ class UserRepository(Repository):
 
 class MotorUserRepository(UserRepository):
     collection = motor_database.users
+
+    async def get_count(self) -> int:
+        return self.collection.count_documents
 
     async def get_by_id(self, instance_id: UserID) -> Optional[User]:
         user = await self.collection.find_one({'_id': instance_id})
