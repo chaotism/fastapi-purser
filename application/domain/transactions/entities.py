@@ -2,7 +2,7 @@ from typing import Optional
 
 from .defines import StatusType
 from .types import TransactionID
-from ..accounts.entities import Account, Money
+from ..accounts import Account, Money
 from ...domain.types import Entity
 
 

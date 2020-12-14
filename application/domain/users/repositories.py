@@ -3,7 +3,7 @@ from contextlib import contextmanager, asynccontextmanager
 from typing import List, Optional
 
 from .types import UserID
-from ..users.entities import User
+from ..users import User
 from ..errors import EntityError
 from ...domain.types import Repository
 from ...dbs.mongo import client, database as motor_database
