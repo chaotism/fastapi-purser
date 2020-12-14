@@ -5,7 +5,7 @@ description = "Example of using fastpai with ddd"
 authors = ["chaotism"]
 license = "MIT"
 packages = [
-    { include = "app" },
+    { include = "application" },
 ]
 
 [tool.poetry.dependencies]
