@@ -62,7 +62,7 @@ class MotorUserRepository(UserRepository):
         raise EntityError('Null id')
 
     @asynccontextmanager
-    def atomic(self):
+    async def atomic(self):
         async with await client.start_session() as s:
             async with s.start_transaction():
                 yield
