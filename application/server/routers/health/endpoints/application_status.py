@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.post('/system-status/', response_model=schemas.Msg, status_code=200)
-def check_app() -> Any:
+def check_app_status() -> Any:
     """
     Check app status.
     # Check DB
@@ -20,7 +20,7 @@ def check_app() -> Any:
 
 
 @router.post('/app-version/', response_model=schemas.Msg, status_code=200)
-def check_app() -> Any:
+def check_app_version() -> Any:
     """
     Check app version.
     """
