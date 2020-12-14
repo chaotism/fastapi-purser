@@ -1,0 +1,24 @@
+version: "3"
+services:
+  mongodb:
+    image: "mongo:4.4.2-bionic"
+    command: mongod --smallfiles --logpath=/dev/null
+    ports:
+      - "9999:27017"
+    volumes:
+      - "../var/mongo-data/:/data/db"
+
+  api:
+    build:
+      context: ../
+      dockerfile: ./docker/application/Dockerfile
+    environment:
+      API_HOST: "0.0.0.0"
+      API_PORT: "8000"
+    env_file:
+      - ../.env
+    ports:
+      - "8000:8000"
+    restart: always
+    depends_on:
+      - mongodb

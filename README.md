@@ -1,3 +1,6 @@
+# Additional docs here
+`docs/index.md`
+
 # Template.
 I clone this repository `git clone https://github.com/prostomarkeloff/fastapi-tortoise`
 

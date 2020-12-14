@@ -7,5 +7,5 @@ markdown_extensions:
   - admonition
   - codehilite
 
-repo_name: 'prostomarkeloff/fastapi-tortoise'
-repo_url: 'https://github.com/prostomarkeloff/fastapi-tortoise'
+repo_name: 'chaotism/fastapi-purser'
+repo_url: 'https://github.com/chaotism/fastapi-purser/'
