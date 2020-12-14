@@ -9,3 +9,8 @@
 # Run api
 cd application
 uvicorn server.app:app --host $API_HOST --port=$API_PORT
+
+# Build Docker
+from project root
+docker build . -f ./docker/application/Dockerfile  -t fastapi-purser:latest
+docker-compose  -f docker/docker-compose-dev.yml
