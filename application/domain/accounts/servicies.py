@@ -5,6 +5,7 @@ from .types import AccountID
 from ..users import User
 from ..transactions import Transaction, TransactionService
 from ..types import Service
+from ..errors import EntityError
 
 
 class AccountService(Service):
@@ -28,3 +29,16 @@ class AccountService(Service):
     def get_account_transactions(transaction_service: TransactionService, account_id: AccountID) -> List[Transaction]:
         transactions = transaction_service.transaction_repo.get_by_account_id(account_id)
         return transactions
+
+    @staticmethod
+    def get_account_transactions(transaction_service: TransactionService, account_id: AccountID) -> List[Transaction]:
+        transactions = transaction_service.transaction_repo.get_by_account_id(account_id)
+        return transactions
+
+    @staticmethod
+    def is_account_owner(account: Account, checking_user: User) -> bool:
+        if account.owner.id is None:
+            raise EntityError("account owner haven't id'")
+        if checking_user.id is None:
+            raise EntityError("checking_user haven't id'")
+        return account.owner.id == checking_user.id
