@@ -2,7 +2,7 @@ from .entities import Account, Money
 from .repositories import AccountRepository
 from .types import AccountID
 from ..users.entities import User
-from domain.types import Service
+from ...domain.types import Service
 
 
 class AccountService(Service):

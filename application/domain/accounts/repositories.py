@@ -1,9 +1,10 @@
 from abc import ABCMeta, abstractmethod
-from contextlib import contextmanager
+from contextlib import contextmanager, asynccontextmanager
 from typing import Optional
 
 from .entities import Account
 from .types import AccountID
+from ..errors import EntityError
 from domain.types import Repository
 
 

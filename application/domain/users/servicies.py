@@ -3,9 +3,9 @@ from typing import Optional
 from pydantic import EmailStr
 
 from .repositories import UserRepository
-from .types import UserID, UserName
+from .types import UserName
 from ..users.entities import User
-from domain.types import Service
+from ...domain.types import Service
 
 
 class UserService(Service):

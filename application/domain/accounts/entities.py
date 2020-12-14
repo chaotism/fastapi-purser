@@ -4,7 +4,7 @@ from decimal import Decimal
 from .defines import CurrencyType
 from .types import AccountID
 from ..users.entities import User
-from domain.types import Entity
+from ...domain.types import Entity
 
 
 class Money(Entity):
