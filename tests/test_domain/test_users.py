@@ -1,4 +1,4 @@
-from typing import Optional, Dict
+from typing import Optional
 from random import randint
 from bson import ObjectId
 from contextlib import contextmanager
@@ -6,6 +6,7 @@ from contextlib import contextmanager
 import pytest
 from pydantic import ValidationError
 
+from domain.types import PDObjectId
 from domain.errors import EntityError
 from domain.users import UserID, User, UserService, UserRepository
 
@@ -34,8 +35,8 @@ class TestUserService:
             def get_by_id(self, instance_id: UserID) -> Optional[User]:
                 return self.data.get(instance_id)
 
-            def insert(self, instance: User) -> None:
-                instance.set_id(ObjectId())
+            def insert(self, instance: User) -> UserID:
+                instance.set_id(PDObjectId)
                 self.data[instance.get_id()] = instance
                 return instance.get_id()
 
