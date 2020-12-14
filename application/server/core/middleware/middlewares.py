@@ -1,9 +1,7 @@
 """API Middlewares"""  # TODO: not implement
 import time
-
-from fastapi import FastAPI, Request
-
-app = FastAPI()
+from fastapi import Request
+from application.server.app import app
 
 
 @app.middleware('http')
