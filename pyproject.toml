@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "tortoise-fastapi"
+name = "fastapi-purser"
 version = "0.0.1"
-description = "The template for building scalable web APIs based on FastAPI, Tortoise ORM and others."
-authors = ["prostomarkeloff"]
+description = "Example of using fastpai with ddd"
+authors = ["chaotism"]
 license = "MIT"
 packages = [
     { include = "app" },

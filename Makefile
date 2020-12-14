@@ -1,4 +1,4 @@
-TEST_PATH=./tests
+TEST_PATH=./application/tests
 
 init:
 	pip install poetry
