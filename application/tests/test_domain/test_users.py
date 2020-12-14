@@ -67,7 +67,7 @@ class TestUserService:
         assert new_user == user_service.user_repo.get_by_id(new_user.id)
 
     @pytest.mark.parametrize(
-        argnames="email,name",
+        argnames='email,name',
         argvalues=[
             (None, 'Mario'),
             (1, 'Luigi'),

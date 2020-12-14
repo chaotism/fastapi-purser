@@ -11,7 +11,7 @@ from starlette.testclient import TimeOut
 
 
 class TestClient(PureClient):
-    def __init__(self, prefix: str = "", *args, **kwargs):
+    def __init__(self, prefix: str = '', *args, **kwargs):
         super(TestClient, self).__init__(*args, **kwargs)
         self.prefix = prefix
 

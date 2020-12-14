@@ -7,7 +7,7 @@ from server.routers.api import schemas, crud, deps
 router = APIRouter()
 
 
-@router.get("/", response_model=List[schemas.Item])
+@router.get('/', response_model=List[schemas.Item])
 def read_items(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
@@ -26,7 +26,7 @@ def read_items(
     return items
 
 
-@router.post("/", response_model=schemas.Item)
+@router.post('/', response_model=schemas.Item)
 def create_item(
     *,
     db: Session = Depends(deps.get_db),
@@ -40,7 +40,7 @@ def create_item(
     return item
 
 
-@router.put("/{id}", response_model=schemas.Item)
+@router.put('/{id}', response_model=schemas.Item)
 def update_item(
     *,
     db: Session = Depends(deps.get_db),
@@ -53,14 +53,14 @@ def update_item(
     """
     item = crud.item.get(db=db, id=id)
     if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=404, detail='Item not found')
     if not crud.user.is_superuser(current_user) and (item.owner_id != current_user.id):
-        raise HTTPException(status_code=400, detail="Not enough permissions")
+        raise HTTPException(status_code=400, detail='Not enough permissions')
     item = crud.item.update(db=db, db_obj=item, obj_in=item_in)
     return item
 
 
-@router.get("/{id}", response_model=schemas.Item)
+@router.get('/{id}', response_model=schemas.Item)
 def read_item(
     *,
     db: Session = Depends(deps.get_db),
@@ -72,13 +72,13 @@ def read_item(
     """
     item = crud.item.get(db=db, id=id)
     if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=404, detail='Item not found')
     if not crud.user.is_superuser(current_user) and (item.owner_id != current_user.id):
-        raise HTTPException(status_code=400, detail="Not enough permissions")
+        raise HTTPException(status_code=400, detail='Not enough permissions')
     return item
 
 
-@router.delete("/{id}", response_model=schemas.Item)
+@router.delete('/{id}', response_model=schemas.Item)
 def delete_item(
     *,
     db: Session = Depends(deps.get_db),
@@ -90,8 +90,8 @@ def delete_item(
     """
     item = crud.item.get(db=db, id=id)
     if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=404, detail='Item not found')
     if not crud.user.is_superuser(current_user) and (item.owner_id != current_user.id):
-        raise HTTPException(status_code=400, detail="Not enough permissions")
+        raise HTTPException(status_code=400, detail='Not enough permissions')
     item = crud.item.remove(db=db, id=id)
     return item

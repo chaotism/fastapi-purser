@@ -17,20 +17,21 @@ app = FastAPI(
     description=openapi_config.description,
 )
 
-@app.on_event("startup")
+
+@app.on_event('startup')
 async def startup():
     await mongo_motor_client.start_session()
 
 
-@app.on_event("shutdown")
+@app.on_event('shutdown')
 async def shutdown():
     await mongo_motor_client.end_session()
 
 
-logger.info("Starting application initialization...")
+logger.info('Starting application initialization...')
 init(app)
-logger.success("Successfully initialized!")
+logger.success('Successfully initialized!')
 
 
-if __name__ == "__main__":
-    uvicorn.run("server.app:app", host="0.0.0.0", port=8000, reload=True)
+if __name__ == '__main__':
+    uvicorn.run('server.app:app', host='0.0.0.0', port=8000, reload=True)
