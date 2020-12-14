@@ -6,9 +6,7 @@ from .entities import Transaction
 from .types import TransactionID
 from ..errors import EntityError
 from ..types import Repository
-
-
-from dbs.mongo import client, database as motor_database
+from ...dbs.mongo import client, database as motor_database
 
 
 class TransactionRepository(Repository):

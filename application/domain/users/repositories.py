@@ -6,8 +6,7 @@ from .types import UserID
 from ..users.entities import User
 from ..errors import EntityError
 from ...domain.types import Repository
-
-from dbs.mongo import client, database as motor_database
+from ...dbs.mongo import client, database as motor_database
 
 
 class UserRepository(Repository):
