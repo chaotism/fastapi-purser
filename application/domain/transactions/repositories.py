@@ -4,6 +4,7 @@ from typing import List, Optional
 
 from .entities import Transaction
 from .types import TransactionID
+from ..accounts import AccountID
 from ..errors import EntityError
 from ..types import Repository
 from ...dbs.mongo import client, database as motor_database
@@ -17,7 +18,7 @@ class TransactionRepository(Repository):
         pass
 
     @abstractmethod
-    def get_by_account_id(self, account_id: TransactionID) -> Optional[List[Transaction]]:
+    def get_by_account_id(self, account_id: AccountID) -> Optional[List[Transaction]]:
         pass
 
     @abstractmethod
@@ -44,6 +45,17 @@ class MotorTransactionRepository(TransactionRepository):
     async def get_by_id(self, instance_id: TransactionID) -> Optional[Transaction]:
         transaction = await self.collection.find_one({'_id': instance_id})
         return Transaction(**transaction)
+
+    async def get_by_account_id(self, account_id: AccountID) -> Optional[List[Transaction]]:
+        transactions_data = await self.collection.find(
+            {
+                '$or': [
+                    {'from_account.id': account_id},
+                    {'to_account.id': account_id}
+                ]
+            }
+        )
+        return list(map(lambda transaction: Transaction(**transaction), transactions_data))
 
     async def insert(self, instance: Transaction) -> TransactionID:
         data = instance.dict(by_alias=True)
