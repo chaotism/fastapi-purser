@@ -58,7 +58,7 @@ class MotorUserRepository(UserRepository):
     async def delete(self, instance: User) -> None:
         instance_id = instance.get_id()
         if instance_id:
-            await self.collection.delete_one({'i': {'$gte': 1000}})
+            await self.collection.delete_one({'_id': instance_id})
         raise EntityError('Null id')
 
     @asynccontextmanager
