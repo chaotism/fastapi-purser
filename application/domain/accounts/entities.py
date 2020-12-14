@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from .defines import CurrencyType
 from .types import AccountID
 from ..users import User
-from ...domain.types import Entity
+from ..types import Entity
 
 
 class Money(BaseModel):

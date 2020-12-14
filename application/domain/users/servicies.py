@@ -5,7 +5,8 @@ from pydantic import EmailStr
 from .repositories import UserRepository
 from .types import UserName
 from ..users import User
-from ...domain.types import Service
+from ..types import Service
+from ..errors import EntityError
 
 
 class UserService(Service):
@@ -23,3 +24,18 @@ class UserService(Service):
         repo_user_id = self.user_repo.insert(user)
         # TODO: add addition logic like send email etc
         return self.user_repo.get_by_id(repo_user_id)
+
+    @staticmethod
+    def is_yourself(you: User, checking_user: User) -> bool:
+        if you.id is None:
+            raise EntityError("you haven't id'")
+        if checking_user.id is None:
+            raise EntityError("checking_user haven't id'")
+        return you.id == checking_user.id
+
+    def have_users(self) -> bool:
+        r
+        pass
+
+    def have_superusers(self) -> bool:
+        pass

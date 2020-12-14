@@ -4,7 +4,7 @@ from .repositories import AccountRepository
 from .types import AccountID
 from ..users import User
 from ..transactions import Transaction, TransactionService
-from ...domain.types import Service
+from ..types import Service
 
 
 class AccountService(Service):

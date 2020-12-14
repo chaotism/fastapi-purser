@@ -5,7 +5,7 @@ from typing import Optional
 from .entities import Account
 from .types import AccountID
 from ..errors import EntityError
-from ...domain.types import Repository
+from ..types import Repository
 from ...dbs.mongo import client, database as motor_database
 
 

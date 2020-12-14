@@ -5,7 +5,7 @@ from .entities import Transaction, Money
 from .repositories import TransactionRepository
 from .types import TransactionID
 from ..accounts import Account, AccountService
-from ...domain.types import Service
+from ..types import Service
 
 
 class TransactionService(Service):
