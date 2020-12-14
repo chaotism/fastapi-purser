@@ -15,7 +15,7 @@ fastapi = "^0.44.0"
 pydantic = "^1.1"
 loguru = "^0.3.2"
 email-validator = "^1.1.2"
-motor = "^3.11.2"
+motor = "^2.3.0"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^18.3-alpha.0", allows-prereleases = true}
