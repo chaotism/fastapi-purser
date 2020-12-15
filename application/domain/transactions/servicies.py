@@ -19,10 +19,11 @@ class TransactionService(Service):
         repo_transaction_id = self.transaction_repo.insert(transaction)
         return self.transaction_repo.get_by_id(repo_transaction_id)
 
-    def evaluate_transaction(self, account_service: AccountService, transaction_id: TransactionID) -> Transaction:
-        transaction = self.transaction_repo.get_by_id(transaction_id)
-        if not transaction:
-            raise EntityError('Not exists transaction')
+    def evaluate_transaction(self, account_service: AccountService, transaction: Transaction) -> Transaction:
+        if not transaction.id:
+            raise EntityError('Null id')
+        if not self.transaction_repo.get_by_id(Transaction.id):
+            raise EntityError('Not exists')
         try:
             with account_service.account_repo.atomic():
                 account_service.withdraw(transaction.from_account, transaction.sum)
@@ -35,7 +36,6 @@ class TransactionService(Service):
             self.transaction_repo.update(transaction)
         return transaction
 
-    @staticmethod
-    def transactions_by_account(self, account_id: AccountID) -> List[Transaction]:
+    def get_account_transaction(self, account_id: AccountID) -> List[Transaction]:
         transactions = self.transaction_repo.get_by_account_id(account_id)
         return transactions

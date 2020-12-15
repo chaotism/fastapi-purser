@@ -23,13 +23,5 @@ class UserService(Service):
         # TODO: add addition logic like send email etc
         return self.user_repo.get_by_id(repo_user_id)
 
-    @staticmethod
-    def is_yourself(you: User, current_user: User) -> bool:
-        if you.id is None:
-            raise EntityError("you haven't id'")
-        if current_user.id is None:
-            raise EntityError("checking_user haven't id'")
-        return you.id == current_user.id
-
     def have_users(self) -> bool:
         return self.user_repo.get_count() > 0
