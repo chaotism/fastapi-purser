@@ -36,3 +36,20 @@ def create_transaction(
 
     transaction = transaction_service.register_transaction(from_account, to_account, transaction_amount)
     return transaction
+
+
+@router.get('/{transaction_id}', response_model=StoredTransaction)
+def read_account_by_id(
+    transaction_id: PDObjectId,
+    transaction_service: TransactionService = Depends(get_transaction_service),
+) -> Any:
+    """
+    Get a specific transaction by id.
+    """
+    transaction = transaction_service.transaction_repo.get_by_id(instance_id=transaction_id)
+    if not transaction:
+        raise HTTPException(
+            status_code=404,
+            detail='Not found',
+        )
+    return transaction
