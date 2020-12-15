@@ -13,14 +13,14 @@ router = APIRouter()
 
 
 @router.get('/{user_id}', response_model=StoredUser)
-def get_user(
+async def get_user(
     user_id: UserID,
     user_service: UserService = Depends(get_users_service),
 ) -> Any:
     """
     Get a specific user by id.
     """
-    user = user_service.user_repo.get_by_id(instance_id=user_id)
+    user = await user_service.user_repo.get_by_id(instance_id=user_id)
     if not user:
         raise HTTPException(
             status_code=404,
@@ -30,7 +30,7 @@ def get_user(
 
 
 @router.post('/', response_model=StoredUser)
-def create_user(
+async def create_user(
     *,
     user_service: UserService = Depends(get_users_service),
     user_in: UserCreate,
@@ -38,11 +38,11 @@ def create_user(
     """
     Create new user.
     """
-    user = user_service.user_repo.get_by_email(email=user_in.email)
-    if user:
-        raise HTTPException(
+    existing_user = await user_service.user_repo.get_by_email(email=user_in.email)
+    if existing_user:
+        raise HTTPException(  # TODO: move checking into services
             status_code=400,
             detail='The user with this email already exists in the system.',
         )
-    user = user_service.register_user(user_in.email, user_in.name)
+    user = await user_service.register_user(user_in.email, user_in.name)
     return user

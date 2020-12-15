@@ -17,14 +17,14 @@ router = APIRouter()
 
 
 @router.get('/{account_id}', response_model=StoredAccount)
-def get_account(
+async def get_account(
     account_id: AccountID,
     account_service: AccountService = Depends(get_account_service),
 ) -> Any:
     """
     Get a specific account by id.
     """
-    account = account_service.account_repo.get_by_id(instance_id=account_id)
+    account = await account_service.account_repo.get_by_id(instance_id=account_id)
     if not account:
         raise HTTPException(
             status_code=404,
@@ -34,7 +34,7 @@ def get_account(
 
 
 @router.post('/', response_model=StoredAccount)
-def create_account(
+async def create_account(
     *,
     user_service: UserService = Depends(get_users_service),
     account_service: AccountService = Depends(get_account_service),
@@ -43,19 +43,25 @@ def create_account(
     """
     Create new account.
     """
-    user = user_service.user_repo.get_by_id(instance_id=account_in.owner_id)
+    user = await user_service.user_repo.get_by_id(instance_id=account_in.owner_id)
     if not user:
-        raise HTTPException(
+        raise HTTPException(  # TODO: move checking into services
             status_code=400,
             detail='The user with this id is not exists in the system.',
         )
+    existing_account = await account_service.account_repo.get_by_owner_id(owner_id=account_in.owner_id)
+    if existing_account:
+        raise HTTPException(  # TODO: move checking into services
+            status_code=400,
+            detail='The account with this owner_id is already exists in the system.',
+        )
     balance = Money(amount=account_in.balance)
-    account = account_service.register_account(user, balance)
+    account = await account_service.register_account(user, balance)
     return account
 
 
 @router.post('/{account_id}/deposit', response_model=StoredAccount)
-def deposit_money(
+async def deposit(
     *,
     account_id: AccountID,
     account_service: AccountService = Depends(get_account_service),
@@ -64,19 +70,19 @@ def deposit_money(
     """
     Deposit money on account by id.
     """
-    account = account_service.account_repo.get_by_id(instance_id=account_id)
+    account = await account_service.account_repo.get_by_id(instance_id=account_id)
     if not account:
-        raise HTTPException(
+        raise HTTPException(  # TODO: move checking into services
             status_code=400,
             detail='The account with this id is not exists in the system.',
         )
-    deposit_money = Money(amount=money_in.sum)
-    account_service.deposit(account, deposit_money)
-    return account_service.account_repo.get_by_id(instance_id=account_id)
+    money = Money(amount=money_in.sum)
+    await account_service.deposit(account, money)
+    return await account_service.account_repo.get_by_id(instance_id=account_id)
 
 
 @router.get('/{account_id}/transactions', response_model=StoredTransactions)
-def get_account_transactions(
+async def get_account_transactions(
     account_id: AccountID,
     account_service: AccountService = Depends(get_account_service),
     transaction_service: TransactionService = Depends(get_transaction_service),
@@ -84,11 +90,11 @@ def get_account_transactions(
     """
     Get transaction of account by id.
     """
-    account = account_service.account_repo.get_by_id(instance_id=account_id)
+    account = await account_service.account_repo.get_by_id(instance_id=account_id)
     if not account:
-        raise HTTPException(
+        raise HTTPException(  # TODO: move checking into services
             status_code=400,
             detail='The account with this id is not exists in the system.',
         )
-    transactions = transaction_service.transaction_repo.get_by_account_id(account.id)
+    transactions = await transaction_service.transaction_repo.get_many_by_account_id(account_id)  # TODO: add pagination
     return {'transactions': transactions}
