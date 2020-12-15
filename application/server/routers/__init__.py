@@ -1,1 +1,2 @@
-from server.server.routers import login
+from .api.endpoints import api_router
+from .health.endpoints import health_router
