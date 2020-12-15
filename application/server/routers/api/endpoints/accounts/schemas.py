@@ -1,13 +1,15 @@
+from typing import Any, List
 from pydantic import BaseModel
 
+from domain.users import UserID
 from domain.accounts import Account
-from domain.types import PDObjectId
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
+from ..transactions.schemas import StoredTransaction
 
 
 # Properties to receive on user creation
 class AccountCreate(BaseModel):
-    owner_id: PDObjectId
+    owner_id: UserID
     balance: float
 
 
@@ -20,3 +22,7 @@ class StoredAccount(Account):
 class DepositMoney(BaseModel):
     sum: float
 
+
+# Properties to return to transaction client
+class StoredTransactions(BaseModel):
+    transactions = List[StoredTransaction]

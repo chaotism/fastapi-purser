@@ -2,8 +2,7 @@ from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from domain.types import PDObjectId
-from domain.users import UserService
+from domain.users import UserService, UserID
 from .deps import get_users_service
 from .schemas import UserCreate, StoredUser
 
@@ -34,7 +33,7 @@ def create_user(
 
 @router.get('/{user_id}', response_model=StoredUser)
 def read_user_by_id(
-    user_id: PDObjectId,
+    user_id: UserID,
     user_service: UserService = Depends(get_users_service),
 ) -> Any:
     """

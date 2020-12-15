@@ -2,15 +2,13 @@ from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from domain.types import PDObjectId
-from domain.accounts import AccountService, Money
+from domain.accounts import AccountService, AccountID, Money
 from domain.users import UserService
 from domain.transactions import TransactionService
 from .deps import get_account_service
-from .schemas import AccountCreate, StoredAccount, DepositMoney
+from .schemas import AccountCreate, StoredAccount, DepositMoney, StoredTransactions
 from ..users.deps import get_users_service
 from ..transactions.deps import get_transaction_service
-from ..transactions.schemas import StoredTransaction
 
 router = APIRouter()
 
@@ -41,7 +39,7 @@ def create_account(
 
 @router.get('/{account_id}', response_model=StoredAccount)
 def read_account_by_id(
-    account_id: PDObjectId,
+    account_id: AccountID,
     account_service: AccountService = Depends(get_account_service),
 ) -> Any:
     """
@@ -59,7 +57,7 @@ def read_account_by_id(
 @router.post('/{account_id}/deposit', response_model=StoredAccount)
 def deposit_on_account_by_id(
     *,
-    account_id: PDObjectId,
+    account_id: AccountID,
     account_service: AccountService = Depends(get_account_service),
     money_in: DepositMoney,
 ) -> Any:
@@ -77,9 +75,9 @@ def deposit_on_account_by_id(
     return account_service.account_repo.get_by_id(instance_id=account_id)
 
 
-@router.get('/{account_id}/transaction', response_model=List[StoredTransaction])
+@router.get('/{account_id}/transaction', response_model=StoredTransactions)
 def read_account_transaction_by_id(
-    account_id: PDObjectId,
+    account_id: AccountID,
     account_service: AccountService = Depends(get_account_service),
     transaction_service: TransactionService = Depends(get_transaction_service),
 ) -> Any:
@@ -93,4 +91,4 @@ def read_account_transaction_by_id(
             detail='The account with this id is not exists in the system.',
         )
     transactions = account_service.get_account_transactions(transaction_service, account.id)
-    return transactions
+    return {'transactions': transactions}
