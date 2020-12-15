@@ -2,6 +2,8 @@ from abc import ABCMeta, abstractmethod
 from contextlib import contextmanager, asynccontextmanager
 from typing import List, Optional
 
+from pydantic import EmailStr
+
 from .types import UserID
 from ..users import User
 from ..errors import EntityError
@@ -18,6 +20,10 @@ class UserRepository(Repository):
 
     @abstractmethod
     def get_by_id(self, instance_id: UserID) -> Optional[User]:
+        pass
+
+    @abstractmethod
+    async def get_by_email(self, email: EmailStr) -> Optional[User]:
         pass
 
     @abstractmethod
@@ -46,6 +52,10 @@ class MotorUserRepository(UserRepository):
 
     async def get_by_id(self, instance_id: UserID) -> Optional[User]:
         user = await self.collection.find_one({'_id': instance_id})
+        return User(**user)
+
+    async def get_by_email(self, email: EmailStr) -> Optional[User]:
+        user = await self.collection.find_one({'email': email})
         return User(**user)
 
     async def insert(self, instance: User) -> UserID:

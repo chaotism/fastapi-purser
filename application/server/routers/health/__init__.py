@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from server.routers.health.endpoints import application_status
+from .endpoints.app_info import app_info_router
 
-api_router = APIRouter()
-api_router.include_router(application_status.router, tags=['health'])
+health_router = APIRouter()
+health_router.include_router(app_info_router.router, tags=['health'])
