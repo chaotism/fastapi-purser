@@ -15,17 +15,17 @@ class AccountService(Service):
         return self.account_repo.get_by_id(repo_account_id)
 
     def deposit(self, account: Account, money: Money):
-        if not account.id:
+        if not account.get_id():
             raise EntityError('Null id')
-        if not self.account_repo.get_by_id(account.id):
+        if not self.account_repo.get_by_id(account.get_id()):
             raise EntityError('Not exists')
         account.balance.amount += money.amount
         self.account_repo.update(account)
 
     def withdraw(self, account: Account, money: Money):
-        if not account.id:
+        if not account.get_id():
             raise EntityError('Null id')
-        if not self.account_repo.get_by_id(account.id):
+        if not self.account_repo.get_by_id(account.get_id()):
             raise EntityError('Not exists')
         account.balance.amount -= money.amount
         self.account_repo.update(account)

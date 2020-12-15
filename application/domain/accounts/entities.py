@@ -1,7 +1,7 @@
 from typing import Optional
 from decimal import Decimal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from ..users import User
 from ..errors import EntityError
@@ -16,14 +16,14 @@ class Money(BaseModel):
 
 
 class Account(Entity):
-    id: Optional[AccountID]
+    id: Optional[AccountID] = Field(alias='_id')
     owner: User
 
     balance: Money
 
     def is_owner(self, user: User) -> bool:
-        if self.owner.id is None:
+        if self.owner.get_id() is None:
             raise EntityError("account owner haven't id'")
-        if user.id is None:
+        if user.get_id() is None:
             raise EntityError("checking_user haven't id'")
-        return self.owner.id == user.id
+        return self.owner.get_id() == user.get_id()
