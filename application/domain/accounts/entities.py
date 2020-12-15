@@ -1,5 +1,4 @@
 from typing import Optional
-from decimal import Decimal
 
 from pydantic import BaseModel, Field
 
@@ -11,8 +10,8 @@ from .types import AccountID
 
 
 class Money(BaseModel):
-    amount: Decimal
-    currency: Optional[CurrencyType] = CurrencyType.usd
+    amount: float  # TODO: use Decimal instead
+    currency: Optional[str] = CurrencyType.usd.value  # TODO: fix working with Enum
 
 
 class Account(Entity):
