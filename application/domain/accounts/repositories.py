@@ -2,11 +2,11 @@ from abc import ABCMeta, abstractmethod
 from contextlib import contextmanager, asynccontextmanager
 from typing import Optional
 
+from dbs.mongo import client, database as motor_database
 from .entities import Account
 from .types import AccountID
 from ..errors import EntityError
 from ..types import Repository
-from ...dbs.mongo import client, database as motor_database
 
 
 class AccountRepository(Repository):

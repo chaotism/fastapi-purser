@@ -4,11 +4,11 @@ from typing import List, Optional
 
 from pydantic import EmailStr
 
+from dbs.mongo import client, database as motor_database
 from .types import UserID
 from ..users import User
 from ..errors import EntityError
 from ..types import Repository
-from ...dbs.mongo import client, database as motor_database
 
 
 class UserRepository(Repository):

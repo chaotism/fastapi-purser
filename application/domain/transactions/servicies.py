@@ -4,7 +4,8 @@ from .defines import StatusType
 from .entities import Transaction, Money
 from .repositories import TransactionRepository
 from .types import TransactionID
-from ..accounts import Account, AccountService
+from ..accounts.servicies import  AccountService
+from ..accounts.entities import Account
 from ..types import Service
 
 
