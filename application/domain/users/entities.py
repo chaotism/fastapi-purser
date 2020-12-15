@@ -11,3 +11,11 @@ class User(Entity):
     email: EmailStr
     name: Optional[UserName] = None
     is_super_user: Optional[bool] = False
+
+    @staticmethod
+    def is_superuser(self) -> bool:
+        return self.is_super_user
+
+    @staticmethod
+    def is_himself(self, user_id: UserID) -> bool:
+        return self.id == user_id

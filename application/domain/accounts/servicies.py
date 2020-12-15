@@ -21,11 +21,3 @@ class AccountService(Service):
     def withdraw(self, account: Account, money: Money):
         account.balance.amount -= money.amount
         self.account_repo.update(account)
-
-    @staticmethod
-    def is_account_owner(account: Account, current_user: User) -> bool:
-        if account.owner.id is None:
-            raise EntityError("account owner haven't id'")
-        if current_user.id is None:
-            raise EntityError("checking_user haven't id'")
-        return account.owner.id == current_user.id

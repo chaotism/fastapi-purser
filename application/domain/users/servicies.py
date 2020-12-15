@@ -31,9 +31,5 @@ class UserService(Service):
             raise EntityError("checking_user haven't id'")
         return you.id == current_user.id
 
-    @staticmethod
-    def is_superuser(current_user: User) -> bool:
-        return current_user.is_super_user
-
     def have_users(self) -> bool:
         return self.user_repo.get_count() > 0
