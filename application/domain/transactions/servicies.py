@@ -12,7 +12,7 @@ class TransactionService(Service):
     def __init__(self, transaction_repo: TransactionRepository) -> None:
         self.transaction_repo = transaction_repo
 
-    def register_transaction(self,  from_account: Account, to_account: Account, sum: Money) -> Transaction:
+    def register_transaction(self, from_account: Account, to_account: Account, sum: Money) -> Transaction:
         transaction = Transaction(from_account=from_account, to_account=to_account, sum=sum)
         repo_transaction_id = self.transaction_repo.insert(transaction)
         return self.transaction_repo.get_by_id(repo_transaction_id)
