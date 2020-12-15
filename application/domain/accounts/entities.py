@@ -11,7 +11,7 @@ from ..types import Entity
 
 class Money(BaseModel):
     amount: Decimal
-    currency: CurrencyType
+    currency: Optional[CurrencyType] = CurrencyType.usd
 
 
 class Account(Entity):
