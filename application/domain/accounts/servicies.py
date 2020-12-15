@@ -15,14 +15,10 @@ class AccountService(Service):
     def __init__(self, account_repo: AccountRepository) -> None:
         self.account_repo = account_repo
 
-    def register_account(
-        self, account_id: AccountID, user: User, balance: Money
-    ) -> Account:
-        account = Account(
-            _id=account_id, owner=user, balance=balance
-        )  # TODO: create id after save
-        self.account_repo.insert(account)
-        return account
+    def register_account(self, user: User, balance: Money) -> Account:
+        account = Account(owner=user, balance=balance)
+        repo_account_id = self.account_repo.insert(account)
+        return self.account_repo.get_by_id(repo_account_id)
 
     def deposit(self, account: Account, money: Money):
         account.balance.amount += money.amount
@@ -33,12 +29,8 @@ class AccountService(Service):
         self.account_repo.update(account)
 
     @staticmethod
-    def get_account_transactions(
-        transaction_service: TransactionService, account_id: AccountID
-    ) -> List[Transaction]:
-        transactions = transaction_service.transaction_repo.get_by_account_id(
-            account_id
-        )
+    def get_account_transactions(transaction_service: TransactionService, account_id: AccountID) -> List[Transaction]:
+        transactions = transaction_service.transaction_repo.get_by_account_id(account_id)
         return transactions
 
     @staticmethod
