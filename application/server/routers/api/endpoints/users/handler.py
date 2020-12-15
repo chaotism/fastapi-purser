@@ -41,4 +41,9 @@ def read_user_by_id(
     Get a specific user by id.
     """
     user = user_service.user_repo.get_by_id(instance_id=user_id)
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail='Not found',
+        )
     return user

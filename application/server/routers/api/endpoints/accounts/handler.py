@@ -48,6 +48,11 @@ def read_account_by_id(
     Get a specific account by id.
     """
     account = account_service.account_repo.get_by_id(instance_id=account_id)
+    if not account:
+        raise HTTPException(
+            status_code=404,
+            detail='Not found',
+        )
     return account
 
 
