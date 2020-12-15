@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import EmailStr
+from pydantic import EmailStr, Field
 
 from ..errors import EntityError
 from ..types import Entity
@@ -8,7 +8,7 @@ from .types import UserID, UserName
 
 
 class User(Entity):
-    id: Optional[UserID]
+    id: Optional[UserID] = Field(alias='_id')
     email: EmailStr
     name: Optional[UserName] = None
     is_super_user: Optional[bool] = False
