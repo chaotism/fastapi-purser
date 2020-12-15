@@ -1,5 +1,5 @@
 """OpenAPI-schema"""
-from server.config.base import BaseSettings
+from .base import BaseSettings
 
 OPENAPI_API_NAME = 'The best API ever'
 OPENAPI_API_VERSION = '0.0.1 beta'
