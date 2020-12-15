@@ -1,4 +1,5 @@
 from typing import Optional
+from datetime import datetime
 
 from .defines import StatusType
 from .types import TransactionID
@@ -17,3 +18,4 @@ class Transaction(Entity):
     sum: Money
 
     status: Optional[StatusType] = StatusType('new')
+    completed_at: Optional[datetime] = None
