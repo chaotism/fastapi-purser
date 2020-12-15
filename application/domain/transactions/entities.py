@@ -18,4 +18,14 @@ class Transaction(Entity):
     sum: Money
 
     status: Optional[StatusType] = StatusType('new')
+    error: str
     completed_at: Optional[datetime] = None
+
+    def set_complete(self):
+        self.status = StatusType.success
+        self.completed_at = datetime.now()
+
+    def set_failed(self, err: str = None):
+        self.status = StatusType.failed
+        self.error = err
+        self.completed_at = datetime.now()
