@@ -67,7 +67,7 @@ class MotorTransactionRepository(TransactionRepository):
         if instance_id:
             data = instance.dict(by_alias=True)
             data.pop('_id')
-            result = await self.collection.update_one({'_id': instance_id}, {'$set': data})
+            await self.collection.update_one({'_id': instance_id}, {'$set': data})
         raise EntityError('Null id')
 
     async def delete(self, instance: Transaction) -> None:
