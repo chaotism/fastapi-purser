@@ -4,7 +4,7 @@ from pydantic import EmailStr
 
 from ..errors import EntityError
 from ..types import Service
-from ..users import User
+from .entities import User
 from .repositories import UserRepository
 from .types import UserName
 

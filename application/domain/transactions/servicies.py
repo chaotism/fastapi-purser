@@ -1,14 +1,13 @@
+from typing import List
+
 from loguru import logger
 
-from .defines import StatusType
+from ..types import Service
+from ..errors import EntityError
+from ..accounts import AccountID, Account, AccountService
 from .entities import Transaction, Money
 from .repositories import TransactionRepository
 from .types import TransactionID
-from .defines import StatusType
-from ..accounts.servicies import AccountService
-from ..accounts.entities import Account
-from ..types import Service
-from ..errors import EntityError
 
 
 class TransactionService(Service):
@@ -35,3 +34,8 @@ class TransactionService(Service):
             transaction.set_failed(str(err))
             self.transaction_repo.update(transaction)
         return transaction
+
+    @staticmethod
+    def transactions_by_account(self, account_id: AccountID) -> List[Transaction]:
+        transactions = self.transaction_repo.get_by_account_id(account_id)
+        return transactions

@@ -3,10 +3,11 @@ from contextlib import contextmanager, asynccontextmanager
 from typing import Optional
 
 from dbs.mongo import client, database as motor_database
-from .entities import Account
-from .types import AccountID
 from ..errors import EntityError
 from ..types import Repository
+from .entities import Account
+from .types import AccountID
+
 
 
 class AccountRepository(Repository):
@@ -35,7 +36,7 @@ class AccountRepository(Repository):
 
 
 class MotorAccountRepository(AccountRepository):
-    collection = motor_database.transactions
+    collection = motor_database.accounts
 
     async def get_by_id(self, instance_id: AccountID) -> Optional[Account]:
         transaction = await self.collection.find_one({'_id': instance_id})

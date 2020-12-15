@@ -1,14 +1,8 @@
-from typing import List
-
 from ..errors import EntityError
-from ..transactions import Transaction
-from ..transactions import TransactionService
 from ..types import Service
 from ..users import User
-from .entities import Account
-from .entities import Money
+from .entities import Account, Money
 from .repositories import AccountRepository
-from .types import AccountID
 
 
 class AccountService(Service):
@@ -27,11 +21,6 @@ class AccountService(Service):
     def withdraw(self, account: Account, money: Money):
         account.balance.amount -= money.amount
         self.account_repo.update(account)
-
-    @staticmethod
-    def get_account_transactions(transaction_service: TransactionService, account_id: AccountID) -> List[Transaction]:
-        transactions = transaction_service.transaction_repo.get_by_account_id(account_id)
-        return transactions
 
     @staticmethod
     def is_account_owner(account: Account, current_user: User) -> bool:

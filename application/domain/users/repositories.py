@@ -1,14 +1,15 @@
 from abc import ABCMeta, abstractmethod
 from contextlib import contextmanager, asynccontextmanager
-from typing import List, Optional
+from typing import  Optional
 
 from pydantic import EmailStr
 
 from dbs.mongo import client, database as motor_database
-from .types import UserID
-from ..users import User
+
 from ..errors import EntityError
 from ..types import Repository
+from .entities import User
+from .types import UserID
 
 
 class UserRepository(Repository):

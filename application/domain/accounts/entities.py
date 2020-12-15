@@ -3,10 +3,10 @@ from decimal import Decimal
 
 from pydantic import BaseModel
 
-from .defines import CurrencyType
-from .types import AccountID
 from ..users import User
 from ..types import Entity
+from .defines import CurrencyType
+from .types import AccountID
 
 
 class Money(BaseModel):
