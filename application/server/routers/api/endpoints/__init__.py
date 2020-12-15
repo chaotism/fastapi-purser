@@ -1,4 +1,5 @@
-from server.utils.api import TypedAPIRouter as APIRouter
+from fastapi import APIRouter
+from server.utils.api import TypedAPIRouter
 from .accounts import account_router
 from .transactions import transaction_router
 from .users import user_router

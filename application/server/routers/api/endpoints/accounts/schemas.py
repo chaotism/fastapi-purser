@@ -25,4 +25,4 @@ class DepositMoney(BaseModel):
 
 # Properties to return to transaction client
 class StoredTransactions(BaseModel):
-    transactions = List[StoredTransaction]
+    transactions: List[StoredTransaction]

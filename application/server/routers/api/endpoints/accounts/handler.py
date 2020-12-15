@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -14,6 +14,23 @@ router = APIRouter()
 
 
 # TODO: add checking current user
+
+
+@router.get('/{account_id}', response_model=StoredAccount)
+def get_account(
+    account_id: AccountID,
+    account_service: AccountService = Depends(get_account_service),
+) -> Any:
+    """
+    Get a specific account by id.
+    """
+    account = account_service.account_repo.get_by_id(instance_id=account_id)
+    if not account:
+        raise HTTPException(
+            status_code=404,
+            detail='Not found',
+        )
+    return account
 
 
 @router.post('/', response_model=StoredAccount)
@@ -37,25 +54,8 @@ def create_account(
     return account
 
 
-@router.get('/{account_id}', response_model=StoredAccount)
-def read_account_by_id(
-    account_id: AccountID,
-    account_service: AccountService = Depends(get_account_service),
-) -> Any:
-    """
-    Get a specific account by id.
-    """
-    account = account_service.account_repo.get_by_id(instance_id=account_id)
-    if not account:
-        raise HTTPException(
-            status_code=404,
-            detail='Not found',
-        )
-    return account
-
-
 @router.post('/{account_id}/deposit', response_model=StoredAccount)
-def deposit_on_account_by_id(
+def deposit_money(
     *,
     account_id: AccountID,
     account_service: AccountService = Depends(get_account_service),
@@ -75,8 +75,8 @@ def deposit_on_account_by_id(
     return account_service.account_repo.get_by_id(instance_id=account_id)
 
 
-@router.get('/{account_id}/transaction', response_model=StoredTransactions)
-def read_account_transaction_by_id(
+@router.get('/{account_id}/transactions', response_model=StoredTransactions)
+def get_account_transactions(
     account_id: AccountID,
     account_service: AccountService = Depends(get_account_service),
     transaction_service: TransactionService = Depends(get_transaction_service),
@@ -90,5 +90,5 @@ def read_account_transaction_by_id(
             status_code=400,
             detail='The account with this id is not exists in the system.',
         )
-    transactions = account_service.get_account_transactions(transaction_service, account.id)
+    transactions = transaction_service.transaction_repo.get_by_account_id(account.id)
     return {'transactions': transactions}

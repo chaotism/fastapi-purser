@@ -21,6 +21,23 @@ def evaluate_transaction(
     transaction_service.evaluate_transaction(account_service, transaction)
 
 
+@router.get('/{transaction_id}', response_model=StoredTransaction)
+def get_transaction_by_id(
+    transaction_id: TransactionID,
+    transaction_service: TransactionService = Depends(get_transaction_service),
+) -> Any:
+    """
+    Get a specific transaction by id.
+    """
+    transaction = transaction_service.transaction_repo.get_by_id(instance_id=transaction_id)
+    if not transaction:
+        raise HTTPException(
+            status_code=404,
+            detail='Not found',
+        )
+    return transaction
+
+
 @router.post('/', response_model=StoredTransaction)
 def create_transaction(
     *,
@@ -44,19 +61,3 @@ def create_transaction(
     background_tasks.add_task(evaluate_transaction, transaction)
     return transaction
 
-
-@router.get('/{transaction_id}', response_model=StoredTransaction)
-def read_transaction_by_id(
-    transaction_id: TransactionID,
-    transaction_service: TransactionService = Depends(get_transaction_service),
-) -> Any:
-    """
-    Get a specific transaction by id.
-    """
-    transaction = transaction_service.transaction_repo.get_by_id(instance_id=transaction_id)
-    if not transaction:
-        raise HTTPException(
-            status_code=404,
-            detail='Not found',
-        )
-    return transaction

@@ -12,6 +12,23 @@ router = APIRouter()
 # TODO: add checking current user
 
 
+@router.get('/{user_id}', response_model=StoredUser)
+def get_user(
+    user_id: UserID,
+    user_service: UserService = Depends(get_users_service),
+) -> Any:
+    """
+    Get a specific user by id.
+    """
+    user = user_service.user_repo.get_by_id(instance_id=user_id)
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail='Not found',
+        )
+    return user
+
+
 @router.post('/', response_model=StoredUser)
 def create_user(
     *,
@@ -28,21 +45,4 @@ def create_user(
             detail='The user with this email already exists in the system.',
         )
     user = user_service.register_user(user_in.email, user_in.name)
-    return user
-
-
-@router.get('/{user_id}', response_model=StoredUser)
-def read_user_by_id(
-    user_id: UserID,
-    user_service: UserService = Depends(get_users_service),
-) -> Any:
-    """
-    Get a specific user by id.
-    """
-    user = user_service.user_repo.get_by_id(instance_id=user_id)
-    if not user:
-        raise HTTPException(
-            status_code=404,
-            detail='Not found',
-        )
     return user
