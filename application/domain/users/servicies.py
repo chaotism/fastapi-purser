@@ -18,7 +18,7 @@ class UserService(Service):
             user_data["name"] = name
 
         user = User(**user_data)
-        async with await self.user_repo.atomic():
+        async with self.user_repo.atomic():
             repo_user_id = await self.user_repo.insert(user)
             return await self.user_repo.get_by_id(repo_user_id)
 

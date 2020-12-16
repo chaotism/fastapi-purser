@@ -87,4 +87,4 @@ class MotorUserRepository(UserRepository):
     async def atomic(self):
         async with await client.start_session() as s:
             async with s.start_transaction():
-                await s.commit_transaction()
+                yield
