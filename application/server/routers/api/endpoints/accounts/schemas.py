@@ -1,10 +1,11 @@
-from typing import Any, List
+from typing import List
+
 from pydantic import BaseModel
 
-from domain.users import UserID
 from domain.accounts import Account
-from pydantic import BaseModel
-from ..transactions.schemas import StoredTransaction
+from domain.types import EncodedModel
+from domain.users import UserID
+from ..transactions.schemas import Transaction
 
 
 # Properties to receive on user creation
@@ -24,5 +25,5 @@ class DepositMoney(BaseModel):
 
 
 # Properties to return to transaction client
-class StoredTransactions(BaseModel):
-    transactions: List[StoredTransaction]
+class StoredTransactions(EncodedModel):
+    transactions: List[Transaction]
