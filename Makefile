@@ -11,6 +11,7 @@ black:
 	black application/
 
 test:
-	export API_TEST=1
+	cd application/
+    export API_TEST=1
 	export PYTHONPATH="`pwd`:$PYTHONPATH"
 	poetry run python -m pytest --cov=app --verbose --color=yes $(TEST_PATH)
