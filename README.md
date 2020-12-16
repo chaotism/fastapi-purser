@@ -13,15 +13,23 @@ increase tests coverage
 
 ## Future Plans
 improve work with chain transaction
+
 release work plans with refund (returning balans and trouble with negative balance after chain of transaction)
+
 read about fraud operation 
 
 improve logs
+
 add pagination
+
 add try scheduler instead fastapi work
+
 check mongo transactions work
 
 add https side car container
+
 add auth(CORS, JWT токен)
+
 add DAO and CQRS to domains
+
 fix TODOS
