@@ -20,4 +20,4 @@ class MongodbSettings(BaseSettings):
         application_settting = ApplicationSettings()
         if application_settting.is_test:
             return MongodbSettings(db=MONGO_DEFAULT_DB_TEST_NAME)
-        return MongodbSettings
+        return MongodbSettings()
