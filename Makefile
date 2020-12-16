@@ -8,8 +8,9 @@ pre-commit:
 	pre-commit install
 
 black:
-	black app/
+	black application/
 
 test:
 	export API_TEST=1
-	python -m pytest --cov=app --verbose --color=yes $(TEST_PATH)
+	export PYTHONPATH="`pwd`:$PYTHONPATH"
+	poetry run python -m pytest --cov=app --verbose --color=yes $(TEST_PATH)
