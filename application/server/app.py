@@ -8,14 +8,18 @@ from loguru import logger
 
 from server.config import openapi_config
 from dbs import mongo_motor_client
-from server.initializer import init
+from server.routers import base_router as routers
 
 
+logger.info('Starting application initialization...')
 app = FastAPI(
     title=openapi_config.name,
     version=openapi_config.version,
     description=openapi_config.description,
 )
+
+app.include_router(routers)
+logger.success('Successfully initialized!')
 
 
 @app.on_event('startup')
@@ -26,11 +30,6 @@ async def startup():
 @app.on_event('shutdown')
 async def shutdown():
     await mongo_motor_client.end_session()
-
-
-logger.info('Starting application initialization...')
-init(app)
-logger.success('Successfully initialized!')
 
 
 if __name__ == '__main__':
