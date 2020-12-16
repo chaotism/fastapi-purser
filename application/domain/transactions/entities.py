@@ -9,8 +9,6 @@ from .defines import StatusType
 from .types import TransactionID
 
 
-# TODO: use pydantic types
-
 class Transaction(Entity):
     id: Optional[TransactionID] = Field(alias='_id')
 

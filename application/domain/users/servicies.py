@@ -12,7 +12,9 @@ class UserService(Service):
     def __init__(self, user_repo: Type[UserRepository]) -> None:
         self.user_repo = user_repo
 
-    async def register_user(self, email: EmailStr, name: Optional[UserName] = None) -> User:
+    async def register_user(
+        self, email: EmailStr, name: Optional[UserName] = None
+    ) -> User:
         user_data = dict(email=email)
         if name is not None:
             user_data["name"] = name

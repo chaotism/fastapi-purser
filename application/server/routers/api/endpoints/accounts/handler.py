@@ -26,10 +26,7 @@ async def get_account(
     """
     account = await account_service.account_repo.get_by_id(instance_id=account_id)
     if not account:
-        raise HTTPException(
-            status_code=404,
-            detail='Not found',
-        )
+        raise HTTPException(status_code=404, detail='Not found')
     return account
 
 
@@ -46,10 +43,11 @@ async def create_account(
     user = await user_service.user_repo.get_by_id(instance_id=account_in.owner_id)
     if not user:
         raise HTTPException(  # TODO: move checking into services
-            status_code=400,
-            detail='The user with this id is not exists in the system.',
+            status_code=400, detail='The user with this id is not exists in the system.'
         )
-    existing_account = await account_service.account_repo.get_by_owner_id(owner_id=account_in.owner_id)
+    existing_account = await account_service.account_repo.get_by_owner_id(
+        owner_id=account_in.owner_id
+    )
     if existing_account:
         raise HTTPException(  # TODO: move checking into services
             status_code=400,
@@ -96,5 +94,7 @@ async def get_account_transactions(
             status_code=400,
             detail='The account with this id is not exists in the system.',
         )
-    transactions = await transaction_service.transaction_repo.get_many_by_account_id(account_id)  # TODO: add pagination
+    transactions = await transaction_service.transaction_repo.get_many_by_account_id(
+        account_id
+    )  # TODO: add pagination
     return {'transactions': transactions}

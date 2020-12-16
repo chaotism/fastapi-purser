@@ -11,8 +11,9 @@ MONGO_DEFAULT_DB_TEST_NAME = 'test'
 
 class MongodbSettings(BaseSettings):
     """Mongodb env values"""
-    uri: str = Field(MONGO_DEFAULT_DB_URI,  env='MONGO_URI')
-    db: str = Field(MONGO_DEFAULT_DB_NAME,  env='MONGO_DB')
+
+    uri: str = Field(MONGO_DEFAULT_DB_URI, env='MONGO_URI')
+    db: str = Field(MONGO_DEFAULT_DB_NAME, env='MONGO_DB')
 
     @classmethod
     def generate(cls):

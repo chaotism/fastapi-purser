@@ -14,26 +14,20 @@ router = APIRouter()
 
 @router.get('/{user_id}', response_model=StoredUser)
 async def get_user(
-    user_id: UserID,
-    user_service: UserService = Depends(get_users_service),
+    user_id: UserID, user_service: UserService = Depends(get_users_service)
 ) -> Any:
     """
     Get a specific user by id.
     """
     user = await user_service.user_repo.get_by_id(instance_id=user_id)
     if not user:
-        raise HTTPException(
-            status_code=404,
-            detail='Not found',
-        )
+        raise HTTPException(status_code=404, detail='Not found')
     return user
 
 
 @router.post('/', response_model=StoredUser)
 async def create_user(
-    *,
-    user_service: UserService = Depends(get_users_service),
-    user_in: UserCreate,
+    *, user_service: UserService = Depends(get_users_service), user_in: UserCreate
 ) -> Any:
     """
     Create new user.

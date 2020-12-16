@@ -10,7 +10,6 @@ from .entities import Account
 from .types import AccountID
 
 
-
 class AccountRepository(Repository):
     __metaclass__ = ABCMeta
 

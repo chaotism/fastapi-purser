@@ -4,7 +4,6 @@ from bson import ObjectId
 from contextlib import asynccontextmanager
 
 import pytest
-# from httpx import AsyncClient
 from pydantic import ValidationError
 
 from domain.types import PDObjectId
@@ -29,7 +28,6 @@ class TestUserService:
 
     @pytest.fixture()
     def fake_user_repo(self):
-
         class FakeUserRepository(UserRepository):
             data = {}
 
@@ -63,25 +61,23 @@ class TestUserService:
     @pytest.mark.asyncio
     async def test_register_user_positive(self, fake_user_repo, simple_user):
         user_service = UserService(fake_user_repo)
-        new_user = await user_service.register_user(email=simple_user.email, name=simple_user.name,)
+        new_user = await user_service.register_user(
+            email=simple_user.email, name=simple_user.name
+        )
         assert new_user.email == simple_user.email
         assert new_user.name == simple_user.name
         assert new_user == await user_service.user_repo.get_by_id(new_user.id)
 
     @pytest.mark.parametrize(
         argnames='email,name',
-        argvalues=[
-            (None, 'Mario'),
-            (1, 'Luigi'),
-            ('cag;ca@cz', 'Bozer'),
-        ],
-        ids=['empty', 'int', 'wrong_email']
+        argvalues=[(None, 'Mario'), (1, 'Luigi'), ('cag;ca@cz', 'Bozer')],
+        ids=['empty', 'int', 'wrong_email'],
     )
     @pytest.mark.asyncio
     async def test_register_user_negative(self, email, name, fake_user_repo):
         user_service = UserService(fake_user_repo)
         with pytest.raises(ValidationError) as err:
-            new_user = await user_service.register_user(email=email, name=name,)
+            new_user = await user_service.register_user(email=email, name=name)
 
 
 class TestUserRepository:  # TODO: write test of base method of repos

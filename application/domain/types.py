@@ -7,7 +7,6 @@ from pydantic import BaseModel, Field
 
 
 class PDObjectId(ObjectId):
-
     @classmethod
     def __get_validators__(cls):
         yield cls.validate
@@ -26,11 +25,7 @@ class PDObjectId(ObjectId):
 class EncodedModel(BaseModel):
     class Config:
         arbitrary_types_allowed = True
-        json_encoders = {
-            ObjectId: str,
-            Decimal: str,
-            Enum: lambda v: v.value
-        }
+        json_encoders = {ObjectId: str, Decimal: str, Enum: lambda v: v.value}
 
 
 class Entity(BaseModel):
@@ -54,11 +49,7 @@ class Entity(BaseModel):
 
     class Config:
         arbitrary_types_allowed = True
-        json_encoders = {
-            ObjectId: str,
-            Decimal: str,
-            Enum: lambda v: v.value
-        }
+        json_encoders = {ObjectId: str, Decimal: str, Enum: lambda v: v.value}
 
 
 class DAO:

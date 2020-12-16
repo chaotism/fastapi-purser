@@ -56,19 +56,20 @@ class MotorTransactionRepository(TransactionRepository):
             return
         return Transaction(**transaction)
 
-    async def get_many_by_account_id(self, account_id: AccountID, buff_size: int = 1000) -> Optional[List[Transaction]]:
+    async def get_many_by_account_id(
+        self, account_id: AccountID, buff_size: int = 1000
+    ) -> Optional[List[Transaction]]:
         transactions_data_cursor = self.collection.find(
-            {
-                '$or': [
-                    {'from_account._id': account_id},
-                    {'to_account._id': account_id}
-                ]
-            }
+            {'$or': [{'from_account._id': account_id}, {'to_account._id': account_id}]}
         )
-        transactions_data = [data for data in await transactions_data_cursor.to_list(length=buff_size)]
+        transactions_data = [
+            data for data in await transactions_data_cursor.to_list(length=buff_size)
+        ]
         if transactions_data is None:
             return
-        return list(map(lambda transaction: Transaction(**transaction), transactions_data))
+        return list(
+            map(lambda transaction: Transaction(**transaction), transactions_data)
+        )
 
     async def insert(self, instance: Transaction) -> TransactionID:
         data = instance.dict(by_alias=True)
