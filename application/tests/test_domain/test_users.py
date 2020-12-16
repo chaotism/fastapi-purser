@@ -1,9 +1,10 @@
 from typing import Optional
 from random import randint
 from bson import ObjectId
-from contextlib import contextmanager
+from contextlib import asynccontextmanager
 
 import pytest
+# from httpx import AsyncClient
 from pydantic import ValidationError
 
 from domain.types import PDObjectId
@@ -32,26 +33,26 @@ class TestUserService:
         class FakeUserRepository(UserRepository):
             data = {}
 
-            def get_by_id(self, instance_id: UserID) -> Optional[User]:
+            async def get_by_id(self, instance_id: UserID) -> Optional[User]:
                 return self.data.get(instance_id)
 
-            def insert(self, instance: User) -> UserID:
+            async def insert(self, instance: User) -> UserID:
                 instance.set_id(PDObjectId)
                 self.data[instance.get_id()] = instance
                 return instance.get_id()
 
-            def update(self, instance: User) -> None:
+            async def update(self, instance: User) -> None:
                 if instance.get_id():
                     self.data[instance.get_id()] = instance
                 raise EntityError('Null id')
 
-            def delete(self, instance: User) -> None:
+            async def delete(self, instance: User) -> None:
                 if instance.get_id():
                     self.data.pop(instance.get_id())
                 raise EntityError('Null id')
 
-            @contextmanager
-            def atomic(self):
+            @asynccontextmanager
+            async def atomic(self):
                 try:
                     yield
                 finally:
@@ -59,12 +60,13 @@ class TestUserService:
 
         return FakeUserRepository()
 
-    def test_register_user_positive(self, fake_user_repo, simple_user):
+    @pytest.mark.asyncio
+    async def test_register_user_positive(self, fake_user_repo, simple_user):
         user_service = UserService(fake_user_repo)
-        new_user = user_service.register_user(email=simple_user.email, name=simple_user.name,)
+        new_user = await user_service.register_user(email=simple_user.email, name=simple_user.name,)
         assert new_user.email == simple_user.email
         assert new_user.name == simple_user.name
-        assert new_user == user_service.user_repo.get_by_id(new_user.id)
+        assert new_user == await user_service.user_repo.get_by_id(new_user.id)
 
     @pytest.mark.parametrize(
         argnames='email,name',
@@ -75,10 +77,11 @@ class TestUserService:
         ],
         ids=['empty', 'int', 'wrong_email']
     )
-    def test_register_user_negative(self, email, name, fake_user_repo):
+    @pytest.mark.asyncio
+    async def test_register_user_negative(self, email, name, fake_user_repo):
         user_service = UserService(fake_user_repo)
         with pytest.raises(ValidationError) as err:
-            new_user = user_service.register_user(email=email, name=name,)
+            new_user = await user_service.register_user(email=email, name=name,)
 
 
 class TestUserRepository:  # TODO: write test of base method of repos

@@ -21,8 +21,8 @@ RUN set -ex && \
     poetry install -n
 
 
-WORKDIR APP_PATH
+WORKDIR $APP_PATH
 
 
 # Run FastApi
-CMD [ "sh", "-c", "uvicorn ${APP_HOME}/server/app:app --http_host=0.0.0.0 --http_port=${WEB_PORT}"]
+CMD [ "sh", "-c", "uvicorn ${APP_PATH}/server/app:app --host=0.0.0.0 --port=${WEB_PORT}"]

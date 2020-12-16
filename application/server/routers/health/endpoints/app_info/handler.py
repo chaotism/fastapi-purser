@@ -2,13 +2,13 @@ from typing import Any
 
 from fastapi import APIRouter
 
-from server.routers.health import schemas
+from .schemas import Msg
 
 
 router = APIRouter()
 
 
-@router.post('/system-status/', response_model=schemas.Msg, status_code=200)
+@router.post('/system-status/', response_model=Msg, status_code=200)
 def check_app_status() -> Any:
     """
     Check app status.
@@ -19,7 +19,7 @@ def check_app_status() -> Any:
     return {'msg': 'Ok'}
 
 
-@router.post('/app-version/', response_model=schemas.Msg, status_code=200)
+@router.post('/app-version/', response_model=Msg, status_code=200)
 def check_app_version() -> Any:
     """
     Check app version.

@@ -1,1 +1,1 @@
-'''Handler for those exceptions.'''  # TODO: not implement
+"""Handler for those exceptions."""  # TODO: not implement

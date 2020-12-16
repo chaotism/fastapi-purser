@@ -1,30 +1,32 @@
-from typing import List
+from ..errors import EntityError
+from ..types import Service
+from ..users import User
 from .entities import Account, Money
 from .repositories import AccountRepository
-from .types import AccountID
-from ..users import User
-from ..transactions import Transaction, TransactionService
-from ...domain.types import Service
 
 
 class AccountService(Service):
     def __init__(self, account_repo: AccountRepository) -> None:
         self.account_repo = account_repo
 
-    def register_account(self, account_id: AccountID, user: User, balance: Money) -> Account:
-        account = Account(_id=account_id, owner=user, balance=balance)  # TODO: create id after save
-        self.account_repo.insert(account)
-        return account
+    async def register_account(self, user: User, balance: Money) -> Account:
+        account = Account(owner=user, balance=balance)
+        async with self.account_repo.atomic():
+            repo_account_id = await self.account_repo.insert(account)
+            return await self.account_repo.get_by_id(repo_account_id)
 
-    def deposit(self, account: Account, money: Money):
+    async def deposit(self, account: Account, money: Money):
+        if not account.get_id():
+            raise EntityError('Null id')
+        if not self.account_repo.get_by_id(account.get_id()):
+            raise EntityError('Not exists')
         account.balance.amount += money.amount
-        self.account_repo.update(account)
+        await self.account_repo.update(account)
 
-    def withdraw(self, account: Account, money: Money):
+    async def withdraw(self, account: Account, money: Money):
+        if not account.get_id():
+            raise EntityError('Null id')
+        if not self.account_repo.get_by_id(account.get_id()):
+            raise EntityError('Not exists')
         account.balance.amount -= money.amount
-        self.account_repo.update(account)
-
-    @staticmethod
-    def get_account_transactions(transaction_service: TransactionService, account_id: AccountID) -> List[Transaction]:
-        transactions = transaction_service.transaction_repo.get_by_account_id(account_id)
-        return transactions
+        await self.account_repo.update(account)

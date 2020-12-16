@@ -1,3 +1,6 @@
+from datetime import datetime
+from enum import Enum
+from decimal import Decimal
 from bson import ObjectId
 from typing import Optional
 from pydantic import BaseModel, Field
@@ -20,8 +23,19 @@ class PDObjectId(ObjectId):
         field_schema.update(type='string')
 
 
+class EncodedModel(BaseModel):
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {
+            ObjectId: str,
+            Decimal: str,
+            Enum: lambda v: v.value
+        }
+
+
 class Entity(BaseModel):
     id: Optional[PDObjectId] = Field(alias='_id')
+    created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now())
 
     def get_id(self):
         return self.id
@@ -29,10 +43,21 @@ class Entity(BaseModel):
     def set_id(self, id: PDObjectId):
         self.id = id
 
+    def dict(self, *args, **kwargs):
+        hidden_fields = set(
+            attribute_name
+            for attribute_name, model_field in self.__fields__.items()
+            if model_field.field_info.extra.get("hidden") is True
+        )
+        kwargs.setdefault("exclude", hidden_fields)
+        return super().dict(*args, **kwargs)
+
     class Config:
         arbitrary_types_allowed = True
         json_encoders = {
-            ObjectId: str
+            ObjectId: str,
+            Decimal: str,
+            Enum: lambda v: v.value
         }
 
 

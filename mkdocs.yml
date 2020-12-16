@@ -1,6 +1,6 @@
-site_name: FastAPI Tortoise
+posite_name: FastAPI Purser
 nav:
-  - Get started: index.md
+  - Get started: docs/index.md
 theme:
   name: 'material'
 markdown_extensions:
