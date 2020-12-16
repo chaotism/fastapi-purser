@@ -1,4 +1,5 @@
-TEST_PATH=./application/tests
+APP_PATH=./application
+TEST_PATH=./tests
 
 init:
 	pip install poetry
@@ -11,7 +12,4 @@ black:
 	black application/
 
 test:
-	cd application/
-    export API_TEST=1
-	export PYTHONPATH="`pwd`:$PYTHONPATH"
-	poetry run python -m pytest --cov=app --verbose --color=yes $(TEST_PATH)
+	cd $(APP_PATH) && poetry run python -m pytest --cov=app --verbose --color=yes $(TEST_PATH)
