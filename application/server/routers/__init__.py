@@ -1,4 +1,4 @@
-from server.utils.api import TypedAPIRouter as APIRouter
+from fastapi import APIRouter
 
 from .api.endpoints import api_router
 from .health.endpoints import health_router
@@ -6,5 +6,5 @@ from .health.endpoints import health_router
 
 base_router = APIRouter()
 
-base_router.include_router(api_router, tags=['api'])
-base_router.include_router(health_router, tags=['health'])
+base_router.include_router(api_router, prefix='/api')
+base_router.include_router(health_router, prefix='/health')
