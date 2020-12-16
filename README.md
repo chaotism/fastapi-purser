@@ -1,3 +1,6 @@
+# Run from root folder
+docker-compose  -f docker/docker-compose-dev.yml up
+
 # Additional docs here
 `docs/index.md`
 
@@ -16,8 +19,9 @@ read about fraud operation
 improve logs
 add pagination
 add try scheduler instead fastapi work
-add DAO and CQRS to domains
+check mongo transactions work
 
 add https side car container
 add auth(CORS, JWT токен)
+add DAO and CQRS to domains
 fix TODOS
