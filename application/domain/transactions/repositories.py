@@ -60,8 +60,8 @@ class MotorTransactionRepository(TransactionRepository):
         transactions_data_cursor = self.collection.find(
             {
                 '$or': [
-                    {'from_account.id': account_id},
-                    {'to_account.id': account_id}
+                    {'from_account._id': account_id},
+                    {'to_account._id': account_id}
                 ]
             }
         )
