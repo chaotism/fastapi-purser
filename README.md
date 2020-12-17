@@ -13,7 +13,7 @@ increase tests coverage
 
 migrate to CBV with fastapi-utils
 
-add scheduler for checking transaction with fastapi-utils
+add scheduler for checking not runned transaction with fastapi-utils
 
 
 ## Future Plans
