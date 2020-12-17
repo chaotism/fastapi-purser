@@ -10,8 +10,11 @@ I clone this repository `git clone https://github.com/prostomarkeloff/fastapi-to
 # Plans
 ## Close plans
 increase tests coverage
+
 migrate to CBV with fastapi-utils
+
 add scheduler for checking transaction with fastapi-utils
+
 
 ## Future Plans
 improve work with chain transaction
