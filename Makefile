@@ -12,4 +12,4 @@ black:
 	black application/
 
 test:
-	cd $(APP_PATH) && poetry run python -m pytest --cov=app --verbose --color=yes $(TEST_PATH)
+	cd $(APP_PATH) && poetry run python -m pytest --cov=application --verbose --color=yes $(TEST_PATH)
