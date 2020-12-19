@@ -1,7 +1,7 @@
 """Config of apps"""
 from pydantic import Field
 
-from server.config.base import BaseSettings
+from config import BaseSettings
 
 
 class ApplicationSettings(BaseSettings):  # TODO: not used fields

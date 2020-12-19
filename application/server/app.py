@@ -6,7 +6,7 @@ import uvicorn
 from fastapi import FastAPI
 from loguru import logger
 
-from server.config import openapi_config
+from config import openapi_config
 from dbs import mongo_motor_client
 from server.routers import base_router as routers
 

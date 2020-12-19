@@ -3,7 +3,7 @@ Here you should do all needed actions. Standart configuration of docker containe
 will run your application with this file.
 """
 import uvicorn
-from server.config import application_config
+from config import application_config
 
 
 if __name__ == '__main__':
