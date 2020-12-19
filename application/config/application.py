@@ -1,7 +1,7 @@
 """Config of apps"""
 from pydantic import Field
 
-from config import BaseSettings
+from .base import BaseSettings
 
 
 class ApplicationSettings(BaseSettings):  # TODO: not used fields

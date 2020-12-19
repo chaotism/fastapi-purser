@@ -6,7 +6,7 @@ import uvicorn
 from fastapi import FastAPI
 from loguru import logger
 
-from config import openapi_config
+from config import openapi_config, application_config
 from dbs import mongo_motor_client
 from server.routers import base_router as routers
 
@@ -33,4 +33,4 @@ async def shutdown():
 
 
 if __name__ == '__main__':
-    uvicorn.run('server.app:app', host='0.0.0.0', port=8000, reload=True)
+    uvicorn.run('server.app:app', host=application_config.host, port=application_config.port, reload=True)
