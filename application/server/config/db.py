@@ -18,7 +18,7 @@ class MongodbSettings(BaseSettings):
     @classmethod
     def generate(cls):
         """Generate MongoDD settings (with sqlite if tests)"""
-        application_settting = ApplicationSettings()
-        if application_settting.is_test:
+        application_settings = ApplicationSettings()
+        if application_settings.is_test:
             return MongodbSettings(db=MONGO_DEFAULT_DB_TEST_NAME)
         return MongodbSettings()
