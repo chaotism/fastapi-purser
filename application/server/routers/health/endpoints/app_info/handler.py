@@ -2,6 +2,7 @@ from typing import Any
 
 from fastapi import APIRouter
 
+from config import openapi_config
 from .schemas import Msg
 
 
@@ -25,4 +26,4 @@ def check_app_version() -> Any:
     Check app version.
     """
     # TODO: Not Implemented
-    return {'msg': '0.1'}
+    return {'msg': openapi_config.version}
