@@ -42,9 +42,9 @@ class Entity(BaseModel):
         hidden_fields = set(
             attribute_name
             for attribute_name, model_field in self.__fields__.items()
-            if model_field.field_info.extra.get("hidden") is True
+            if model_field.field_info.extra.get('hidden') is True
         )
-        kwargs.setdefault("exclude", hidden_fields)
+        kwargs.setdefault('exclude', hidden_fields)
         return super().dict(*args, **kwargs)
 
     class Config:
