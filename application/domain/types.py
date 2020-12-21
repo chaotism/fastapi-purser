@@ -29,10 +29,22 @@ class PDObjectId(ObjectId):
 class EncodedModel(BaseModel):
     class Config:
         arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str, Decimal: str, Enum: lambda v: v.value}
+        json_encoders = {
+            UUID: str,
+            datetime: lambda dt: dt.isoformat(),
+            date: lambda d: d.isoformat(),
+            time: lambda t: t.isoformat(),
+            timedelta: lambda td: td.total_seconds(),
+            bytes: lambda o: o.decode(),
+            set: list,
+            frozenset: list,
+            GeneratorType: list,
+            Decimal: float,
+            Enum: lambda v: v.value
+        }
 
 
-class Entity(BaseModel):
+class Entity(EncodedModel):
     id: Optional[PDObjectId] = Field(alias='_id')
     created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now())
 
@@ -50,22 +62,6 @@ class Entity(BaseModel):
         )
         kwargs.setdefault('exclude', hidden_fields)
         return super().dict(*args, **kwargs)
-
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {
-            UUID: str,
-            datetime: lambda dt: dt.isoformat(),
-            date: lambda d: d.isoformat(),
-            time: lambda t: t.isoformat(),
-            timedelta: lambda td: td.total_seconds(),
-            set: list,
-            frozenset: list,
-            GeneratorType: list,
-            bytes: lambda o: o.decode(),
-            Decimal: float,
-            Enum: lambda v: v.value
-        }
 
 
 class DAO:
