@@ -65,7 +65,7 @@ class MotorTransactionRepository(TransactionRepository):
         transactions_data = [
             data for data in await transactions_data_cursor.to_list(length=buff_size)
         ]
-        if transactions_data is None:
+        if not transactions_data:
             return
         return list(
             map(lambda transaction: Transaction(**transaction), transactions_data)
