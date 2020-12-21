@@ -37,4 +37,7 @@ add auth(CORS, JWT токен)
 
 add DAO and CQRS to domains
 
+add race conditions protection 
+
 fix TODOS
+
