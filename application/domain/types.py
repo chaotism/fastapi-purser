@@ -1,8 +1,12 @@
-from datetime import datetime
+from typing import Optional
+from types import GeneratorType
+from uuid import UUID
+from bson import ObjectId
+from datetime import date, datetime, time, timedelta
 from enum import Enum
 from decimal import Decimal
-from bson import ObjectId
-from typing import Optional
+
+
 from pydantic import BaseModel, Field
 
 
@@ -49,7 +53,19 @@ class Entity(BaseModel):
 
     class Config:
         arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str, Decimal: str, Enum: lambda v: v.value}
+        json_encoders = {
+            UUID: str,
+            datetime: lambda dt: dt.isoformat(),
+            date: lambda d: d.isoformat(),
+            time: lambda t: t.isoformat(),
+            timedelta: lambda td: td.total_seconds(),
+            set: list,
+            frozenset: list,
+            GeneratorType: list,
+            bytes: lambda o: o.decode(),
+            Decimal: float,
+            Enum: lambda v: v.value
+        }
 
 
 class DAO:
