@@ -4,6 +4,7 @@ will run your application with this file.
 """
 import uvicorn
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from loguru import logger
 
 from config import openapi_config, application_config
@@ -18,7 +19,13 @@ app = FastAPI(
     description=openapi_config.description,
 )
 
+
+@app.get("/")
+async def redirect_to_docs():
+    return RedirectResponse("/docs")
+
 app.include_router(routers)
+
 logger.success('Successfully initialized!')
 
 
