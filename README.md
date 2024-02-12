@@ -10,7 +10,9 @@ I clone this repository `git clone https://github.com/prostomarkeloff/fastapi-to
 # Plans
 ## Close plans
 increase tests coverage
+
 use pattern Saga for closing trouble of distrubed transaction
+
 migrate to CBV with fastapi-utils
 
 add scheduler for checking not runned transaction with fastapi-utils
